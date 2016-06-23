@@ -1,0 +1,83 @@
+﻿@model OwaspSAMM.DAL.Assessment
+
+@{
+    ViewBag.Title = "Create Assessment";
+}
+
+<h3>Assessment</h3>
+<h4>Create</h4>
+<hr />
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true)
+        <div class="form-group">
+            @Html.Label("Product Name", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10 focus">
+                @Html.EditorFor(model => model.ApplicationName)
+                @Html.ValidationMessageFor(model => model.ApplicationName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Business Unit", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("BusinessUnit", (string)ViewBag.UserBuName, htmlAttributes: new { @class = "col-md-3", @readonly = "readonly" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.Label("Organization", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("OrganizationName", (string)ViewBag.UserOrgName, htmlAttributes: new { @class = "col-md-3", @readonly = "readonly" })*@
+                @*@Html.ValidationMessageFor(model => model.OrganizationName)*@
+            @*</div>
+        </div>*@
+
+        <div class="form-group">
+            @Html.Label("Owner ID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("OwnerID")
+            </div>
+        </div>
+
+        @*Uncomment the following block to enable Assessment Templates*@
+        @*<div class="form-group">
+            @Html.Label("Assessment Template", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("TemplateVersion")
+            </div>
+        </div>*@
+
+        @*Uncomment the following block to enable Industry Targets*@
+        @*<div class="form-group">
+            @Html.Label("Target Industry", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("IndustryID")
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(function () {
+            $('.focus :input').focus();
+        });
+    </script>
+}

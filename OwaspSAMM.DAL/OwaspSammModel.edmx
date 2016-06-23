@@ -1,0 +1,1443 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="OpenSAMMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Assessment">
+          <Key>
+            <PropertyRef Name="AssessmentID" />
+          </Key>
+          <Property Name="AssessmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TemplateVersion" Type="int" Nullable="false" />
+          <Property Name="OwnerID" Type="int" Nullable="false" />
+          <Property Name="OrganizationName" Type="varchar" MaxLength="100" />
+          <Property Name="ApplicationName" Type="varchar" MaxLength="50" />
+          <Property Name="LastUpdated" Type="datetime2" Precision="7" />
+          <Property Name="LastUpdateBy" Type="int" />
+          <Property Name="CreateDate" Type="datetime2" Precision="7" />
+          <Property Name="CreateBy" Type="int" />
+          <Property Name="IndustryID" Type="int" />
+          <Property Name="BusinessUnit" Type="varchar" MaxLength="50" />
+          <Property Name="Finalized" Type="bit" />
+        </EntityType>
+        <EntityType Name="AssessmentTemplate">
+          <Key>
+            <PropertyRef Name="TemplateID" />
+          </Key>
+          <Property Name="TemplateID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TemplateVersion" Type="int" Nullable="false" />
+          <Property Name="TemplateDate" Type="datetime2" Precision="7" />
+          <Property Name="DefaultTemplate" Type="bit" />
+        </EntityType>
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CategoryColor" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CategoryData">
+          <Key>
+            <PropertyRef Name="CatID" />
+          </Key>
+          <Property Name="CatID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryID" Type="int" Nullable="false" />
+          <Property Name="CategoryOrder" Type="int" Nullable="false" />
+          <Property Name="AssessmentID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GroupData">
+          <Key>
+            <PropertyRef Name="GroID" />
+          </Key>
+          <Property Name="GroID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GroupID" Type="int" Nullable="false" />
+          <Property Name="GroupOrder" Type="int" Nullable="false" />
+          <Property Name="SectionID" Type="int" Nullable="false" />
+          <Property Name="GroupScore" Type="int" />
+        </EntityType>
+        <EntityType Name="Groups">
+          <Key>
+            <PropertyRef Name="GroupID" />
+          </Key>
+          <Property Name="GroupID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GroupName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Industry">
+          <Key>
+            <PropertyRef Name="IndustryID" />
+          </Key>
+          <Property Name="IndustryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IndustryName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="IndustryOrder" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IndustryTarget">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryID" Type="int" Nullable="false" />
+          <Property Name="SectionID" Type="int" Nullable="false" />
+          <Property Name="IndustryID" Type="int" Nullable="false" />
+          <Property Name="Score" Type="varchar" MaxLength="2" />
+        </EntityType>
+        <EntityType Name="IndustryTargetScoreValues">
+          <Key>
+            <PropertyRef Name="Score" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Score" Type="varchar" MaxLength="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="QuestionData">
+          <Key>
+            <PropertyRef Name="QID" />
+          </Key>
+          <Property Name="QID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QuestionID" Type="int" Nullable="false" />
+          <Property Name="QuestionOrder" Type="int" Nullable="false" />
+          <Property Name="Answer" Type="bit" />
+          <Property Name="GroupID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Questions">
+          <Key>
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="QuestionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QuestionText" Type="varchar" MaxLength="400" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SectionData">
+          <Key>
+            <PropertyRef Name="SecID" />
+          </Key>
+          <Property Name="SecID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SectionID" Type="int" Nullable="false" />
+          <Property Name="SectionOrder" Type="int" Nullable="false" />
+          <Property Name="CategoryID" Type="int" Nullable="false" />
+          <Property Name="SectionScore" Type="int" />
+          <Property Name="SectionScorePartial" Type="int" />
+        </EntityType>
+        <EntityType Name="Sections">
+          <Key>
+            <PropertyRef Name="SectionID" />
+          </Key>
+          <Property Name="SectionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SectionName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TemplateCategories">
+          <Key>
+            <PropertyRef Name="CatID" />
+          </Key>
+          <Property Name="CatID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TemplateID" Type="int" Nullable="false" />
+          <Property Name="CategoryID" Type="int" Nullable="false" />
+          <Property Name="CategoryOrder" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TemplateGroups">
+          <Key>
+            <PropertyRef Name="GroID" />
+          </Key>
+          <Property Name="GroID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GroupID" Type="int" Nullable="false" />
+          <Property Name="GroupOrder" Type="int" Nullable="false" />
+          <Property Name="SectionID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TemplateQuestions">
+          <Key>
+            <PropertyRef Name="QueID" />
+          </Key>
+          <Property Name="QueID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QuestionID" Type="int" Nullable="false" />
+          <Property Name="QuestionOrder" Type="int" Nullable="false" />
+          <Property Name="GroupID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TemplateSections">
+          <Key>
+            <PropertyRef Name="SecID" />
+          </Key>
+          <Property Name="SecID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SectionID" Type="int" Nullable="false" />
+          <Property Name="SectionOrder" Type="int" Nullable="false" />
+          <Property Name="CategoryID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserData">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserNTID" Type="varchar" MaxLength="50" />
+          <Property Name="UserDomain" Type="varchar" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="ManagerID" Type="varchar" MaxLength="50" />
+          <Property Name="MgrLastName" Type="varchar" MaxLength="50" />
+          <Property Name="MgrFirstName" Type="varchar" MaxLength="50" />
+          <Property Name="ManagerEID" Type="varchar" MaxLength="50" />
+          <Property Name="OrgName" Type="varchar" MaxLength="50" />
+          <Property Name="LastLoginDate" Type="datetime2" Precision="7" />
+          <Property Name="Administrator" Type="bit" />
+          <Property Name="Manager" Type="bit" />
+          <Property Name="BusinessUnit" Type="varchar" MaxLength="50" />
+          <Property Name="BUOwner" Type="bit" />
+        </EntityType>
+        <Association Name="FK_Assessment_Industry">
+          <End Role="Industry" Type="Self.Industry" Multiplicity="0..1" />
+          <End Role="Assessment" Type="Self.Assessment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Industry">
+              <PropertyRef Name="IndustryID" />
+            </Principal>
+            <Dependent Role="Assessment">
+              <PropertyRef Name="IndustryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Assessment_UserData">
+          <End Role="UserData" Type="Self.UserData" Multiplicity="0..1" />
+          <End Role="Assessment" Type="Self.Assessment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserData">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Assessment">
+              <PropertyRef Name="LastUpdateBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Assessment_UserData1">
+          <End Role="UserData" Type="Self.UserData" Multiplicity="1" />
+          <End Role="Assessment" Type="Self.Assessment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserData">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Assessment">
+              <PropertyRef Name="OwnerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Assessment_UserData2">
+          <End Role="UserData" Type="Self.UserData" Multiplicity="0..1" />
+          <End Role="Assessment" Type="Self.Assessment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserData">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Assessment">
+              <PropertyRef Name="CreateBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CategoryData_Assessment">
+          <End Role="Assessment" Type="Self.Assessment" Multiplicity="1" />
+          <End Role="CategoryData" Type="Self.CategoryData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Assessment">
+              <PropertyRef Name="AssessmentID" />
+            </Principal>
+            <Dependent Role="CategoryData">
+              <PropertyRef Name="AssessmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CategoryData_Categories">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
+          <End Role="CategoryData" Type="Self.CategoryData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="CategoryData">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GroupData_Groups">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="1" />
+          <End Role="GroupData" Type="Self.GroupData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="GroupID" />
+            </Principal>
+            <Dependent Role="GroupData">
+              <PropertyRef Name="GroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GroupData_SectionData">
+          <End Role="SectionData" Type="Self.SectionData" Multiplicity="1" />
+          <End Role="GroupData" Type="Self.GroupData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SectionData">
+              <PropertyRef Name="SecID" />
+            </Principal>
+            <Dependent Role="GroupData">
+              <PropertyRef Name="SectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IndustrySectionDefault_Categories">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
+          <End Role="IndustryTarget" Type="Self.IndustryTarget" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="IndustryTarget">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IndustrySectionDefault_Industry">
+          <End Role="Industry" Type="Self.Industry" Multiplicity="1" />
+          <End Role="IndustryTarget" Type="Self.IndustryTarget" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Industry">
+              <PropertyRef Name="IndustryID" />
+            </Principal>
+            <Dependent Role="IndustryTarget">
+              <PropertyRef Name="IndustryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IndustrySectionDefault_Sections">
+          <End Role="Sections" Type="Self.Sections" Multiplicity="1" />
+          <End Role="IndustryTarget" Type="Self.IndustryTarget" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sections">
+              <PropertyRef Name="SectionID" />
+            </Principal>
+            <Dependent Role="IndustryTarget">
+              <PropertyRef Name="SectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IndustryTarget_IndustryTargetScoreValues1">
+          <End Role="IndustryTargetScoreValues" Type="Self.IndustryTargetScoreValues" Multiplicity="0..1" />
+          <End Role="IndustryTarget" Type="Self.IndustryTarget" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IndustryTargetScoreValues">
+              <PropertyRef Name="Score" />
+            </Principal>
+            <Dependent Role="IndustryTarget">
+              <PropertyRef Name="Score" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionData_GroupData">
+          <End Role="GroupData" Type="Self.GroupData" Multiplicity="1" />
+          <End Role="QuestionData" Type="Self.QuestionData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GroupData">
+              <PropertyRef Name="GroID" />
+            </Principal>
+            <Dependent Role="QuestionData">
+              <PropertyRef Name="GroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionData_Questions">
+          <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
+          <End Role="QuestionData" Type="Self.QuestionData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="QuestionID" />
+            </Principal>
+            <Dependent Role="QuestionData">
+              <PropertyRef Name="QuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SectionData_CategoryData">
+          <End Role="CategoryData" Type="Self.CategoryData" Multiplicity="1" />
+          <End Role="SectionData" Type="Self.SectionData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoryData">
+              <PropertyRef Name="CatID" />
+            </Principal>
+            <Dependent Role="SectionData">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SectionData_Sections">
+          <End Role="Sections" Type="Self.Sections" Multiplicity="1" />
+          <End Role="SectionData" Type="Self.SectionData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sections">
+              <PropertyRef Name="SectionID" />
+            </Principal>
+            <Dependent Role="SectionData">
+              <PropertyRef Name="SectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TemplateCategories_AssessmentTemplate">
+          <End Role="AssessmentTemplate" Type="Self.AssessmentTemplate" Multiplicity="1" />
+          <End Role="TemplateCategories" Type="Self.TemplateCategories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AssessmentTemplate">
+              <PropertyRef Name="TemplateID" />
+            </Principal>
+            <Dependent Role="TemplateCategories">
+              <PropertyRef Name="TemplateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TemplateCategories_Categories">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
+          <End Role="TemplateCategories" Type="Self.TemplateCategories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="TemplateCategories">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TemplateGroups_Groups">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="1" />
+          <End Role="TemplateGroups" Type="Self.TemplateGroups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="GroupID" />
+            </Principal>
+            <Dependent Role="TemplateGroups">
+              <PropertyRef Name="GroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TemplateGroups_TemplateSections">
+          <End Role="TemplateSections" Type="Self.TemplateSections" Multiplicity="1" />
+          <End Role="TemplateGroups" Type="Self.TemplateGroups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TemplateSections">
+              <PropertyRef Name="SecID" />
+            </Principal>
+            <Dependent Role="TemplateGroups">
+              <PropertyRef Name="SectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TemplateQuestions_Questions">
+          <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
+          <End Role="TemplateQuestions" Type="Self.TemplateQuestions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="QuestionID" />
+            </Principal>
+            <Dependent Role="TemplateQuestions">
+              <PropertyRef Name="QuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TemplateQuestions_TemplateGroups">
+          <End Role="TemplateGroups" Type="Self.TemplateGroups" Multiplicity="1" />
+          <End Role="TemplateQuestions" Type="Self.TemplateQuestions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TemplateGroups">
+              <PropertyRef Name="GroID" />
+            </Principal>
+            <Dependent Role="TemplateQuestions">
+              <PropertyRef Name="GroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TemplateSections_Sections">
+          <End Role="Sections" Type="Self.Sections" Multiplicity="1" />
+          <End Role="TemplateSections" Type="Self.TemplateSections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sections">
+              <PropertyRef Name="SectionID" />
+            </Principal>
+            <Dependent Role="TemplateSections">
+              <PropertyRef Name="SectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TemplateSections_TemplateCategories">
+          <End Role="TemplateCategories" Type="Self.TemplateCategories" Multiplicity="1" />
+          <End Role="TemplateSections" Type="Self.TemplateSections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TemplateCategories">
+              <PropertyRef Name="CatID" />
+            </Principal>
+            <Dependent Role="TemplateSections">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OpenSAMMModelStoreContainer">
+          <EntitySet Name="Assessment" EntityType="Self.Assessment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AssessmentTemplate" EntityType="Self.AssessmentTemplate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CategoryData" EntityType="Self.CategoryData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GroupData" EntityType="Self.GroupData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Industry" EntityType="Self.Industry" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IndustryTarget" EntityType="Self.IndustryTarget" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IndustryTargetScoreValues" EntityType="Self.IndustryTargetScoreValues" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuestionData" EntityType="Self.QuestionData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Questions" EntityType="Self.Questions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SectionData" EntityType="Self.SectionData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sections" EntityType="Self.Sections" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TemplateCategories" EntityType="Self.TemplateCategories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TemplateGroups" EntityType="Self.TemplateGroups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TemplateQuestions" EntityType="Self.TemplateQuestions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TemplateSections" EntityType="Self.TemplateSections" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserData" EntityType="Self.UserData" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Assessment_Industry" Association="Self.FK_Assessment_Industry">
+            <End Role="Industry" EntitySet="Industry" />
+            <End Role="Assessment" EntitySet="Assessment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Assessment_UserData" Association="Self.FK_Assessment_UserData">
+            <End Role="UserData" EntitySet="UserData" />
+            <End Role="Assessment" EntitySet="Assessment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Assessment_UserData1" Association="Self.FK_Assessment_UserData1">
+            <End Role="UserData" EntitySet="UserData" />
+            <End Role="Assessment" EntitySet="Assessment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Assessment_UserData2" Association="Self.FK_Assessment_UserData2">
+            <End Role="UserData" EntitySet="UserData" />
+            <End Role="Assessment" EntitySet="Assessment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CategoryData_Assessment" Association="Self.FK_CategoryData_Assessment">
+            <End Role="Assessment" EntitySet="Assessment" />
+            <End Role="CategoryData" EntitySet="CategoryData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CategoryData_Categories" Association="Self.FK_CategoryData_Categories">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="CategoryData" EntitySet="CategoryData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GroupData_Groups" Association="Self.FK_GroupData_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="GroupData" EntitySet="GroupData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GroupData_SectionData" Association="Self.FK_GroupData_SectionData">
+            <End Role="SectionData" EntitySet="SectionData" />
+            <End Role="GroupData" EntitySet="GroupData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IndustrySectionDefault_Categories" Association="Self.FK_IndustrySectionDefault_Categories">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="IndustryTarget" EntitySet="IndustryTarget" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IndustrySectionDefault_Industry" Association="Self.FK_IndustrySectionDefault_Industry">
+            <End Role="Industry" EntitySet="Industry" />
+            <End Role="IndustryTarget" EntitySet="IndustryTarget" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IndustrySectionDefault_Sections" Association="Self.FK_IndustrySectionDefault_Sections">
+            <End Role="Sections" EntitySet="Sections" />
+            <End Role="IndustryTarget" EntitySet="IndustryTarget" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IndustryTarget_IndustryTargetScoreValues1" Association="Self.FK_IndustryTarget_IndustryTargetScoreValues1">
+            <End Role="IndustryTargetScoreValues" EntitySet="IndustryTargetScoreValues" />
+            <End Role="IndustryTarget" EntitySet="IndustryTarget" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionData_GroupData" Association="Self.FK_QuestionData_GroupData">
+            <End Role="GroupData" EntitySet="GroupData" />
+            <End Role="QuestionData" EntitySet="QuestionData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionData_Questions" Association="Self.FK_QuestionData_Questions">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="QuestionData" EntitySet="QuestionData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SectionData_CategoryData" Association="Self.FK_SectionData_CategoryData">
+            <End Role="CategoryData" EntitySet="CategoryData" />
+            <End Role="SectionData" EntitySet="SectionData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SectionData_Sections" Association="Self.FK_SectionData_Sections">
+            <End Role="Sections" EntitySet="Sections" />
+            <End Role="SectionData" EntitySet="SectionData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TemplateCategories_AssessmentTemplate" Association="Self.FK_TemplateCategories_AssessmentTemplate">
+            <End Role="AssessmentTemplate" EntitySet="AssessmentTemplate" />
+            <End Role="TemplateCategories" EntitySet="TemplateCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TemplateCategories_Categories" Association="Self.FK_TemplateCategories_Categories">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="TemplateCategories" EntitySet="TemplateCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TemplateGroups_Groups" Association="Self.FK_TemplateGroups_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="TemplateGroups" EntitySet="TemplateGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TemplateGroups_TemplateSections" Association="Self.FK_TemplateGroups_TemplateSections">
+            <End Role="TemplateSections" EntitySet="TemplateSections" />
+            <End Role="TemplateGroups" EntitySet="TemplateGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TemplateQuestions_Questions" Association="Self.FK_TemplateQuestions_Questions">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="TemplateQuestions" EntitySet="TemplateQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TemplateQuestions_TemplateGroups" Association="Self.FK_TemplateQuestions_TemplateGroups">
+            <End Role="TemplateGroups" EntitySet="TemplateGroups" />
+            <End Role="TemplateQuestions" EntitySet="TemplateQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TemplateSections_Sections" Association="Self.FK_TemplateSections_Sections">
+            <End Role="Sections" EntitySet="Sections" />
+            <End Role="TemplateSections" EntitySet="TemplateSections" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TemplateSections_TemplateCategories" Association="Self.FK_TemplateSections_TemplateCategories">
+            <End Role="TemplateCategories" EntitySet="TemplateCategories" />
+            <End Role="TemplateSections" EntitySet="TemplateSections" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OwaspSAMMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="OwaspSAMMContext" annotation:LazyLoadingEnabled="false">
+          <EntitySet Name="AssessmentTemplates" EntityType="OwaspSAMMModel.AssessmentTemplate" />
+          <EntitySet Name="Categories" EntityType="OwaspSAMMModel.Category" />
+          <EntitySet Name="Groups" EntityType="OwaspSAMMModel.Group" />
+          <EntitySet Name="Questions" EntityType="OwaspSAMMModel.Question" />
+          <EntitySet Name="Sections" EntityType="OwaspSAMMModel.Section" />
+          <EntitySet Name="Assessments" EntityType="OwaspSAMMModel.Assessment" />
+          <EntitySet Name="CategoryDatas" EntityType="OwaspSAMMModel.CategoryData" />
+          <EntitySet Name="GroupDatas" EntityType="OwaspSAMMModel.GroupData" />
+          <EntitySet Name="QuestionDatas" EntityType="OwaspSAMMModel.QuestionData" />
+          <EntitySet Name="SectionDatas" EntityType="OwaspSAMMModel.SectionData" />
+          <AssociationSet Name="FK_CategoryData_Assessment" Association="OwaspSAMMModel.FK_CategoryData_Assessment">
+            <End Role="Assessment" EntitySet="Assessments" />
+            <End Role="CategoryData" EntitySet="CategoryDatas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SectionData_CategoryData" Association="OwaspSAMMModel.FK_SectionData_CategoryData">
+            <End Role="CategoryData" EntitySet="CategoryDatas" />
+            <End Role="SectionData" EntitySet="SectionDatas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GroupData_SectionData" Association="OwaspSAMMModel.FK_GroupData_SectionData">
+            <End Role="SectionData" EntitySet="SectionDatas" />
+            <End Role="GroupData" EntitySet="GroupDatas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionData_GroupData" Association="OwaspSAMMModel.FK_QuestionData_GroupData">
+            <End Role="GroupData" EntitySet="GroupDatas" />
+            <End Role="QuestionData" EntitySet="QuestionDatas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CategoryData_Categories" Association="OwaspSAMMModel.FK_CategoryData_Categories">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="CategoryData" EntitySet="CategoryDatas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GroupData_Groups" Association="OwaspSAMMModel.FK_GroupData_Groups">
+            <End Role="Group" EntitySet="Groups" />
+            <End Role="GroupData" EntitySet="GroupDatas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SectionData_Sections" Association="OwaspSAMMModel.FK_SectionData_Sections">
+            <End Role="Section" EntitySet="Sections" />
+            <End Role="SectionData" EntitySet="SectionDatas" />
+          </AssociationSet>
+          <EntitySet Name="TemplateCategories" EntityType="OwaspSAMMModel.TemplateCategory" />
+          <EntitySet Name="TemplateGroups" EntityType="OwaspSAMMModel.TemplateGroup" />
+          <EntitySet Name="TemplateQuestions" EntityType="OwaspSAMMModel.TemplateQuestion" />
+          <EntitySet Name="TemplateSections" EntityType="OwaspSAMMModel.TemplateSection" />
+          <AssociationSet Name="FK_TemplateCategories_AssessmentTemplate" Association="OwaspSAMMModel.FK_TemplateCategories_AssessmentTemplate">
+            <End Role="AssessmentTemplate" EntitySet="AssessmentTemplates" />
+            <End Role="TemplateCategory" EntitySet="TemplateCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TemplateCategories_Categories" Association="OwaspSAMMModel.FK_TemplateCategories_Categories">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="TemplateCategory" EntitySet="TemplateCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TemplateGroups_Groups" Association="OwaspSAMMModel.FK_TemplateGroups_Groups">
+            <End Role="Group" EntitySet="Groups" />
+            <End Role="TemplateGroup" EntitySet="TemplateGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TemplateQuestions_Questions" Association="OwaspSAMMModel.FK_TemplateQuestions_Questions">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="TemplateQuestion" EntitySet="TemplateQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TemplateSections_Sections" Association="OwaspSAMMModel.FK_TemplateSections_Sections">
+            <End Role="Section" EntitySet="Sections" />
+            <End Role="TemplateSection" EntitySet="TemplateSections" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TemplateSections_TemplateCategories" Association="OwaspSAMMModel.FK_TemplateSections_TemplateCategories">
+            <End Role="TemplateCategory" EntitySet="TemplateCategories" />
+            <End Role="TemplateSection" EntitySet="TemplateSections" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TemplateGroups_TemplateSections" Association="OwaspSAMMModel.FK_TemplateGroups_TemplateSections">
+            <End Role="TemplateSection" EntitySet="TemplateSections" />
+            <End Role="TemplateGroup" EntitySet="TemplateGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TemplateQuestions_TemplateGroups" Association="OwaspSAMMModel.FK_TemplateQuestions_TemplateGroups">
+            <End Role="TemplateGroup" EntitySet="TemplateGroups" />
+            <End Role="TemplateQuestion" EntitySet="TemplateQuestions" />
+          </AssociationSet>
+          <EntitySet Name="UserDatas" EntityType="OwaspSAMMModel.UserData" />
+          <AssociationSet Name="FK_Assessment_UserData" Association="OwaspSAMMModel.FK_Assessment_UserData">
+            <End Role="UserData" EntitySet="UserDatas" />
+            <End Role="Assessment" EntitySet="Assessments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Assessment_UserData1" Association="OwaspSAMMModel.FK_Assessment_UserData1">
+            <End Role="UserData" EntitySet="UserDatas" />
+            <End Role="Assessment" EntitySet="Assessments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Assessment_UserData2" Association="OwaspSAMMModel.FK_Assessment_UserData2">
+            <End Role="UserData" EntitySet="UserDatas" />
+            <End Role="Assessment" EntitySet="Assessments" />
+          </AssociationSet>
+          <EntitySet Name="Industries" EntityType="OwaspSAMMModel.Industry" />
+          <AssociationSet Name="FK_QuestionData_Questions" Association="OwaspSAMMModel.FK_QuestionData_Questions">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="QuestionData" EntitySet="QuestionDatas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Assessment_Industry" Association="OwaspSAMMModel.FK_Assessment_Industry">
+            <End Role="Industry" EntitySet="Industries" />
+            <End Role="Assessment" EntitySet="Assessments" />
+          </AssociationSet>
+          <EntitySet Name="IndustryTargets" EntityType="OwaspSAMMModel.IndustryTarget" />
+          <EntitySet Name="IndustryTargetScoreValues" EntityType="OwaspSAMMModel.IndustryTargetScoreValue" />
+          <AssociationSet Name="FK_IndustrySectionDefault_Categories" Association="OwaspSAMMModel.FK_IndustrySectionDefault_Categories">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="IndustryTarget" EntitySet="IndustryTargets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IndustrySectionDefault_Industry" Association="OwaspSAMMModel.FK_IndustrySectionDefault_Industry">
+            <End Role="Industry" EntitySet="Industries" />
+            <End Role="IndustryTarget" EntitySet="IndustryTargets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IndustrySectionDefault_Sections" Association="OwaspSAMMModel.FK_IndustrySectionDefault_Sections">
+            <End Role="Section" EntitySet="Sections" />
+            <End Role="IndustryTarget" EntitySet="IndustryTargets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IndustryTarget_IndustryTargetScoreValues1" Association="OwaspSAMMModel.FK_IndustryTarget_IndustryTargetScoreValues1">
+            <End Role="IndustryTargetScoreValue" EntitySet="IndustryTargetScoreValues" />
+            <End Role="IndustryTarget" EntitySet="IndustryTargets" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="AssessmentTemplate">
+          <Key>
+            <PropertyRef Name="TemplateID" />
+          </Key>
+          <Property Name="TemplateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TemplateVersion" Type="Int32" Nullable="false" />
+          <Property Name="TemplateDate" Type="DateTime" Precision="7" />
+          <Property Name="DefaultTemplate" Type="Boolean" />
+          <NavigationProperty Name="TemplateCategories" Relationship="OwaspSAMMModel.FK_TemplateCategories_AssessmentTemplate" FromRole="AssessmentTemplate" ToRole="TemplateCategory" />
+          </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CategoryDatas" Relationship="OwaspSAMMModel.FK_CategoryData_Categories" FromRole="Category" ToRole="CategoryData" />
+          <NavigationProperty Name="TemplateCategories" Relationship="OwaspSAMMModel.FK_TemplateCategories_Categories" FromRole="Category" ToRole="TemplateCategory" />
+          <Property Name="CategoryColor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="IndustryTargets" Relationship="OwaspSAMMModel.FK_IndustrySectionDefault_Categories" FromRole="Category" ToRole="IndustryTarget" />
+        </EntityType>
+        <EntityType Name="Group">
+          <Key>
+            <PropertyRef Name="GroupID" />
+          </Key>
+          <Property Name="GroupID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="GroupDatas" Relationship="OwaspSAMMModel.FK_GroupData_Groups" FromRole="Group" ToRole="GroupData" />
+          <NavigationProperty Name="TemplateGroups" Relationship="OwaspSAMMModel.FK_TemplateGroups_Groups" FromRole="Group" ToRole="TemplateGroup" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="QuestionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuestionText" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TemplateQuestions" Relationship="OwaspSAMMModel.FK_TemplateQuestions_Questions" FromRole="Question" ToRole="TemplateQuestion" />
+          <NavigationProperty Name="QuestionDatas" Relationship="OwaspSAMMModel.FK_QuestionData_Questions" FromRole="Question" ToRole="QuestionData" />
+        </EntityType>
+        <EntityType Name="Section">
+          <Key>
+            <PropertyRef Name="SectionID" />
+          </Key>
+          <Property Name="SectionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SectionName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SectionDatas" Relationship="OwaspSAMMModel.FK_SectionData_Sections" FromRole="Section" ToRole="SectionData" />
+          <NavigationProperty Name="TemplateSections" Relationship="OwaspSAMMModel.FK_TemplateSections_Sections" FromRole="Section" ToRole="TemplateSection" />
+          <NavigationProperty Name="IndustryTargets" Relationship="OwaspSAMMModel.FK_IndustrySectionDefault_Sections" FromRole="Section" ToRole="IndustryTarget" />
+        </EntityType>
+        <EntityType Name="Assessment">
+          <Key>
+            <PropertyRef Name="AssessmentID" />
+          </Key>
+          <Property Name="AssessmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TemplateVersion" Type="Int32" Nullable="false" />
+          <Property Name="OwnerID" Type="Int32" Nullable="false" />
+          <Property Name="OrganizationName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ApplicationName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastUpdated" Type="DateTime" Precision="7" />
+          <Property Name="LastUpdateBy" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Precision="7" />
+          <Property Name="CreateBy" Type="Int32" />
+          <NavigationProperty Name="CategoryDatas" Relationship="OwaspSAMMModel.FK_CategoryData_Assessment" FromRole="Assessment" ToRole="CategoryData" />
+          <NavigationProperty Name="UserData" Relationship="OwaspSAMMModel.FK_Assessment_UserData" FromRole="Assessment" ToRole="UserData" />
+          <NavigationProperty Name="UserData1" Relationship="OwaspSAMMModel.FK_Assessment_UserData1" FromRole="Assessment" ToRole="UserData" />
+          <NavigationProperty Name="UserData2" Relationship="OwaspSAMMModel.FK_Assessment_UserData2" FromRole="Assessment" ToRole="UserData" />
+          <Property Name="IndustryID" Type="Int32" />
+          <NavigationProperty Name="Industry" Relationship="OwaspSAMMModel.FK_Assessment_Industry" FromRole="Assessment" ToRole="Industry" />
+          <Property Name="BusinessUnit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Finalized" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="CategoryData">
+          <Key>
+            <PropertyRef Name="CatID" />
+          </Key>
+          <Property Name="CategoryID" Type="Int32" Nullable="false" />
+          <Property Name="CategoryOrder" Type="Int32" Nullable="false" />
+          <Property Name="AssessmentID" Type="Int32" Nullable="false" />
+          <Property Name="CatID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Assessment" Relationship="OwaspSAMMModel.FK_CategoryData_Assessment" FromRole="CategoryData" ToRole="Assessment" />
+          <NavigationProperty Name="SectionDatas" Relationship="OwaspSAMMModel.FK_SectionData_CategoryData" FromRole="CategoryData" ToRole="SectionData" />
+          <NavigationProperty Name="Category" Relationship="OwaspSAMMModel.FK_CategoryData_Categories" FromRole="CategoryData" ToRole="Category" />
+        </EntityType>
+        <EntityType Name="GroupData">
+          <Key>
+            <PropertyRef Name="GroID" />
+          </Key>
+          <Property Name="GroupID" Type="Int32" Nullable="false" />
+          <Property Name="GroupOrder" Type="Int32" Nullable="false" />
+          <Property Name="SectionID" Type="Int32" Nullable="false" />
+          <Property Name="GroID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="SectionData" Relationship="OwaspSAMMModel.FK_GroupData_SectionData" FromRole="GroupData" ToRole="SectionData" />
+          <NavigationProperty Name="QuestionDatas" Relationship="OwaspSAMMModel.FK_QuestionData_GroupData" FromRole="GroupData" ToRole="QuestionData" />
+          <NavigationProperty Name="Group" Relationship="OwaspSAMMModel.FK_GroupData_Groups" FromRole="GroupData" ToRole="Group" />
+          <Property Name="GroupScore" Type="Int32" />
+        </EntityType>
+        <EntityType Name="QuestionData">
+          <Key>
+            <PropertyRef Name="QID" />
+          </Key>
+          <Property Name="QID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuestionID" Type="Int32" Nullable="false" />
+          <Property Name="QuestionOrder" Type="Int32" Nullable="false" />
+          <Property Name="Answer" Type="Boolean" />
+          <Property Name="GroupID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="GroupData" Relationship="OwaspSAMMModel.FK_QuestionData_GroupData" FromRole="QuestionData" ToRole="GroupData" />
+          <NavigationProperty Name="Question" Relationship="OwaspSAMMModel.FK_QuestionData_Questions" FromRole="QuestionData" ToRole="Question" />
+        </EntityType>
+        <EntityType Name="SectionData">
+          <Key>
+            <PropertyRef Name="SecID" />
+          </Key>
+          <Property Name="SectionID" Type="Int32" Nullable="false" />
+          <Property Name="SectionOrder" Type="Int32" Nullable="false" />
+          <Property Name="CategoryID" Type="Int32" Nullable="false" />
+          <Property Name="SecID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="CategoryData" Relationship="OwaspSAMMModel.FK_SectionData_CategoryData" FromRole="SectionData" ToRole="CategoryData" />
+          <NavigationProperty Name="GroupDatas" Relationship="OwaspSAMMModel.FK_GroupData_SectionData" FromRole="SectionData" ToRole="GroupData" />
+          <NavigationProperty Name="Section" Relationship="OwaspSAMMModel.FK_SectionData_Sections" FromRole="SectionData" ToRole="Section" />
+          <Property Name="SectionScore" Type="Int32" />
+          <Property Name="SectionScorePartial" Type="Int32" />
+        </EntityType>
+        <Association Name="FK_CategoryData_Assessment">
+          <End Type="OwaspSAMMModel.Assessment" Role="Assessment" Multiplicity="1" />
+          <End Type="OwaspSAMMModel.CategoryData" Role="CategoryData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Assessment">
+              <PropertyRef Name="AssessmentID" />
+            </Principal>
+            <Dependent Role="CategoryData">
+              <PropertyRef Name="AssessmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SectionData_CategoryData">
+          <End Type="OwaspSAMMModel.CategoryData" Role="CategoryData" Multiplicity="1" />
+          <End Type="OwaspSAMMModel.SectionData" Role="SectionData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoryData">
+              <PropertyRef Name="CatID" />
+            </Principal>
+            <Dependent Role="SectionData">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GroupData_SectionData">
+          <End Type="OwaspSAMMModel.SectionData" Role="SectionData" Multiplicity="1" />
+          <End Type="OwaspSAMMModel.GroupData" Role="GroupData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SectionData">
+              <PropertyRef Name="SecID" />
+            </Principal>
+            <Dependent Role="GroupData">
+              <PropertyRef Name="SectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionData_GroupData">
+          <End Type="OwaspSAMMModel.GroupData" Role="GroupData" Multiplicity="1" />
+          <End Type="OwaspSAMMModel.QuestionData" Role="QuestionData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GroupData">
+              <PropertyRef Name="GroID" />
+            </Principal>
+            <Dependent Role="QuestionData">
+              <PropertyRef Name="GroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CategoryData_Categories">
+          <End Type="OwaspSAMMModel.Category" Role="Category" Multiplicity="1" />
+          <End Type="OwaspSAMMModel.CategoryData" Role="CategoryData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="CategoryData">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GroupData_Groups">
+          <End Type="OwaspSAMMModel.Group" Role="Group" Multiplicity="1" />
+          <End Type="OwaspSAMMModel.GroupData" Role="GroupData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="GroupID" />
+            </Principal>
+            <Dependent Role="GroupData">
+              <PropertyRef Name="GroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SectionData_Sections">
+          <End Type="OwaspSAMMModel.Section" Role="Section" Multiplicity="1" />
+          <End Type="OwaspSAMMModel.SectionData" Role="SectionData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Section">
+              <PropertyRef Name="SectionID" />
+            </Principal>
+            <Dependent Role="SectionData">
+              <PropertyRef Name="SectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TemplateCategory">
+          <Key>
+            <PropertyRef Name="CatID" />
+          </Key>
+          <Property Name="CatID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TemplateID" Type="Int32" Nullable="false" />
+          <Property Name="CategoryID" Type="Int32" Nullable="false" />
+          <Property Name="CategoryOrder" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AssessmentTemplate" Relationship="OwaspSAMMModel.FK_TemplateCategories_AssessmentTemplate" FromRole="TemplateCategory" ToRole="AssessmentTemplate" />
+          <NavigationProperty Name="Category" Relationship="OwaspSAMMModel.FK_TemplateCategories_Categories" FromRole="TemplateCategory" ToRole="Category" />
+          <NavigationProperty Name="TemplateSections" Relationship="OwaspSAMMModel.FK_TemplateSections_TemplateCategories" FromRole="TemplateCategory" ToRole="TemplateSection" />
+        </EntityType>
+        <EntityType Name="TemplateGroup">
+          <Key>
+            <PropertyRef Name="GroID" />
+          </Key>
+          <Property Name="GroID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupID" Type="Int32" Nullable="false" />
+          <Property Name="GroupOrder" Type="Int32" Nullable="false" />
+          <Property Name="SectionID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Group" Relationship="OwaspSAMMModel.FK_TemplateGroups_Groups" FromRole="TemplateGroup" ToRole="Group" />
+          <NavigationProperty Name="TemplateSection" Relationship="OwaspSAMMModel.FK_TemplateGroups_TemplateSections" FromRole="TemplateGroup" ToRole="TemplateSection" />
+          <NavigationProperty Name="TemplateQuestions" Relationship="OwaspSAMMModel.FK_TemplateQuestions_TemplateGroups" FromRole="TemplateGroup" ToRole="TemplateQuestion" />
+        </EntityType>
+        <EntityType Name="TemplateQuestion">
+          <Key>
+            <PropertyRef Name="QueID" />
+          </Key>
+          <Property Name="QueID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuestionID" Type="Int32" Nullable="false" />
+          <Property Name="QuestionOrder" Type="Int32" Nullable="false" />
+          <Property Name="GroupID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Question" Relationship="OwaspSAMMModel.FK_TemplateQuestions_Questions" FromRole="TemplateQuestion" ToRole="Question" />
+          <NavigationProperty Name="TemplateGroup" Relationship="OwaspSAMMModel.FK_TemplateQuestions_TemplateGroups" FromRole="TemplateQuestion" ToRole="TemplateGroup" />
+        </EntityType>
+        <EntityType Name="TemplateSection">
+          <Key>
+            <PropertyRef Name="SecID" />
+          </Key>
+          <Property Name="SecID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SectionID" Type="Int32" Nullable="false" />
+          <Property Name="SectionOrder" Type="Int32" Nullable="false" />
+          <Property Name="CategoryID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Section" Relationship="OwaspSAMMModel.FK_TemplateSections_Sections" FromRole="TemplateSection" ToRole="Section" />
+          <NavigationProperty Name="TemplateCategory" Relationship="OwaspSAMMModel.FK_TemplateSections_TemplateCategories" FromRole="TemplateSection" ToRole="TemplateCategory" />
+          <NavigationProperty Name="TemplateGroups" Relationship="OwaspSAMMModel.FK_TemplateGroups_TemplateSections" FromRole="TemplateSection" ToRole="TemplateGroup" />
+        </EntityType>
+        <Association Name="FK_TemplateCategories_AssessmentTemplate">
+          <End Type="OwaspSAMMModel.AssessmentTemplate" Role="AssessmentTemplate" Multiplicity="1" />
+          <End Type="OwaspSAMMModel.TemplateCategory" Role="TemplateCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AssessmentTemplate">
+              <PropertyRef Name="TemplateID" />
+            </Principal>
+            <Dependent Role="TemplateCategory">
+              <PropertyRef Name="TemplateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TemplateCategories_Categories">
+          <End Type="OwaspSAMMModel.Category" Role="Category" Multiplicity="1" />
+          <End Type="OwaspSAMMModel.TemplateCategory" Role="TemplateCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="TemplateCategory">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TemplateGroups_Groups">
+          <End Type="OwaspSAMMModel.Group" Role="Group" Multiplicity="1" />
+          <End Type="OwaspSAMMModel.TemplateGroup" Role="TemplateGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="GroupID" />
+            </Principal>
+            <Dependent Role="TemplateGroup">
+              <PropertyRef Name="GroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TemplateQuestions_Questions">
+          <End Type="OwaspSAMMModel.Question" Role="Question" Multiplicity="1" />
+          <End Type="OwaspSAMMModel.TemplateQuestion" Role="TemplateQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="QuestionID" />
+            </Principal>
+            <Dependent Role="TemplateQuestion">
+              <PropertyRef Name="QuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TemplateSections_Sections">
+          <End Type="OwaspSAMMModel.Section" Role="Section" Multiplicity="1" />
+          <End Type="OwaspSAMMModel.TemplateSection" Role="TemplateSection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Section">
+              <PropertyRef Name="SectionID" />
+            </Principal>
+            <Dependent Role="TemplateSection">
+              <PropertyRef Name="SectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TemplateSections_TemplateCategories">
+          <End Type="OwaspSAMMModel.TemplateCategory" Role="TemplateCategory" Multiplicity="1" />
+          <End Type="OwaspSAMMModel.TemplateSection" Role="TemplateSection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TemplateCategory">
+              <PropertyRef Name="CatID" />
+            </Principal>
+            <Dependent Role="TemplateSection">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TemplateGroups_TemplateSections">
+          <End Type="OwaspSAMMModel.TemplateSection" Role="TemplateSection" Multiplicity="1" />
+          <End Type="OwaspSAMMModel.TemplateGroup" Role="TemplateGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TemplateSection">
+              <PropertyRef Name="SecID" />
+            </Principal>
+            <Dependent Role="TemplateGroup">
+              <PropertyRef Name="SectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TemplateQuestions_TemplateGroups">
+          <End Type="OwaspSAMMModel.TemplateGroup" Role="TemplateGroup" Multiplicity="1" />
+          <End Type="OwaspSAMMModel.TemplateQuestion" Role="TemplateQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TemplateGroup">
+              <PropertyRef Name="GroID" />
+            </Principal>
+            <Dependent Role="TemplateQuestion">
+              <PropertyRef Name="GroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="UserData">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserNTID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserDomain" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ManagerID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MgrLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MgrFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ManagerEID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OrgName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastLoginDate" Type="DateTime" Precision="7" />
+          <Property Name="Administrator" Type="Boolean" />
+          <NavigationProperty Name="Assessments" Relationship="OwaspSAMMModel.FK_Assessment_UserData" FromRole="UserData" ToRole="Assessment" />
+          <NavigationProperty Name="Assessments1" Relationship="OwaspSAMMModel.FK_Assessment_UserData1" FromRole="UserData" ToRole="Assessment" />
+          <NavigationProperty Name="Assessments2" Relationship="OwaspSAMMModel.FK_Assessment_UserData2" FromRole="UserData" ToRole="Assessment" />
+          <Property Name="Manager" Type="Boolean" />
+          <Property Name="BusinessUnit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BUOwner" Type="Boolean" />
+        </EntityType>
+        <Association Name="FK_Assessment_UserData">
+          <End Type="OwaspSAMMModel.UserData" Role="UserData" Multiplicity="0..1" />
+          <End Type="OwaspSAMMModel.Assessment" Role="Assessment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserData">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Assessment">
+              <PropertyRef Name="LastUpdateBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Assessment_UserData1">
+          <End Type="OwaspSAMMModel.UserData" Role="UserData" Multiplicity="1" />
+          <End Type="OwaspSAMMModel.Assessment" Role="Assessment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserData">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Assessment">
+              <PropertyRef Name="OwnerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Assessment_UserData2">
+          <End Type="OwaspSAMMModel.UserData" Role="UserData" Multiplicity="0..1" />
+          <End Type="OwaspSAMMModel.Assessment" Role="Assessment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserData">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Assessment">
+              <PropertyRef Name="CreateBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Industry">
+          <Key>
+            <PropertyRef Name="IndustryID" />
+          </Key>
+          <Property Name="IndustryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IndustryName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IndustryOrder" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Assessments" Relationship="OwaspSAMMModel.FK_Assessment_Industry" FromRole="Industry" ToRole="Assessment" />
+          <NavigationProperty Name="IndustryTargets" Relationship="OwaspSAMMModel.FK_IndustrySectionDefault_Industry" FromRole="Industry" ToRole="IndustryTarget" />
+        </EntityType>
+        <Association Name="FK_QuestionData_Questions">
+          <End Type="OwaspSAMMModel.Question" Role="Question" Multiplicity="1" />
+          <End Type="OwaspSAMMModel.QuestionData" Role="QuestionData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="QuestionID" />
+            </Principal>
+            <Dependent Role="QuestionData">
+              <PropertyRef Name="QuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Assessment_Industry">
+          <End Type="OwaspSAMMModel.Industry" Role="Industry" Multiplicity="0..1" />
+          <End Type="OwaspSAMMModel.Assessment" Role="Assessment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Industry">
+              <PropertyRef Name="IndustryID" />
+            </Principal>
+            <Dependent Role="Assessment">
+              <PropertyRef Name="IndustryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="IndustryTarget">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryID" Type="Int32" Nullable="false" />
+          <Property Name="SectionID" Type="Int32" Nullable="false" />
+          <Property Name="IndustryID" Type="Int32" Nullable="false" />
+          <Property Name="Score" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Category" Relationship="OwaspSAMMModel.FK_IndustrySectionDefault_Categories" FromRole="IndustryTarget" ToRole="Category" />
+          <NavigationProperty Name="Industry" Relationship="OwaspSAMMModel.FK_IndustrySectionDefault_Industry" FromRole="IndustryTarget" ToRole="Industry" />
+          <NavigationProperty Name="Section" Relationship="OwaspSAMMModel.FK_IndustrySectionDefault_Sections" FromRole="IndustryTarget" ToRole="Section" />
+          <NavigationProperty Name="IndustryTargetScoreValue" Relationship="OwaspSAMMModel.FK_IndustryTarget_IndustryTargetScoreValues1" FromRole="IndustryTarget" ToRole="IndustryTargetScoreValue" />
+        </EntityType>
+        <EntityType Name="IndustryTargetScoreValue">
+          <Key>
+            <PropertyRef Name="Score" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Score" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="IndustryTargets" Relationship="OwaspSAMMModel.FK_IndustryTarget_IndustryTargetScoreValues1" FromRole="IndustryTargetScoreValue" ToRole="IndustryTarget" />
+        </EntityType>
+        <Association Name="FK_IndustrySectionDefault_Categories">
+          <End Type="OwaspSAMMModel.Category" Role="Category" Multiplicity="1" />
+          <End Type="OwaspSAMMModel.IndustryTarget" Role="IndustryTarget" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="IndustryTarget">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IndustrySectionDefault_Industry">
+          <End Type="OwaspSAMMModel.Industry" Role="Industry" Multiplicity="1" />
+          <End Type="OwaspSAMMModel.IndustryTarget" Role="IndustryTarget" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Industry">
+              <PropertyRef Name="IndustryID" />
+            </Principal>
+            <Dependent Role="IndustryTarget">
+              <PropertyRef Name="IndustryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IndustrySectionDefault_Sections">
+          <End Type="OwaspSAMMModel.Section" Role="Section" Multiplicity="1" />
+          <End Type="OwaspSAMMModel.IndustryTarget" Role="IndustryTarget" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Section">
+              <PropertyRef Name="SectionID" />
+            </Principal>
+            <Dependent Role="IndustryTarget">
+              <PropertyRef Name="SectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IndustryTarget_IndustryTargetScoreValues1">
+          <End Type="OwaspSAMMModel.IndustryTargetScoreValue" Role="IndustryTargetScoreValue" Multiplicity="0..1" />
+          <End Type="OwaspSAMMModel.IndustryTarget" Role="IndustryTarget" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IndustryTargetScoreValue">
+              <PropertyRef Name="Score" />
+            </Principal>
+            <Dependent Role="IndustryTarget">
+              <PropertyRef Name="Score" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OpenSAMMModelStoreContainer" CdmEntityContainer="OwaspSAMMContext">
+          <EntitySetMapping Name="AssessmentTemplates">
+            <EntityTypeMapping TypeName="OwaspSAMMModel.AssessmentTemplate">
+              <MappingFragment StoreEntitySet="AssessmentTemplate">
+                <ScalarProperty Name="DefaultTemplate" ColumnName="DefaultTemplate" />
+                <ScalarProperty Name="TemplateDate" ColumnName="TemplateDate" />
+                <ScalarProperty Name="TemplateVersion" ColumnName="TemplateVersion" />
+                <ScalarProperty Name="TemplateID" ColumnName="TemplateID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="OwaspSAMMModel.Category">
+              <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="CategoryColor" ColumnName="CategoryColor" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Groups">
+            <EntityTypeMapping TypeName="OwaspSAMMModel.Group">
+              <MappingFragment StoreEntitySet="Groups">
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questions">
+            <EntityTypeMapping TypeName="OwaspSAMMModel.Question">
+              <MappingFragment StoreEntitySet="Questions">
+                <ScalarProperty Name="QuestionText" ColumnName="QuestionText" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sections">
+            <EntityTypeMapping TypeName="OwaspSAMMModel.Section">
+              <MappingFragment StoreEntitySet="Sections">
+                <ScalarProperty Name="SectionName" ColumnName="SectionName" />
+                <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Assessments">
+            <EntityTypeMapping TypeName="OwaspSAMMModel.Assessment">
+              <MappingFragment StoreEntitySet="Assessment">
+                <ScalarProperty Name="Finalized" ColumnName="Finalized" />
+                <ScalarProperty Name="BusinessUnit" ColumnName="BusinessUnit" />
+                <ScalarProperty Name="IndustryID" ColumnName="IndustryID" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="LastUpdateBy" ColumnName="LastUpdateBy" />
+                <ScalarProperty Name="LastUpdated" ColumnName="LastUpdated" />
+                <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+                <ScalarProperty Name="OrganizationName" ColumnName="OrganizationName" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+                <ScalarProperty Name="TemplateVersion" ColumnName="TemplateVersion" />
+                <ScalarProperty Name="AssessmentID" ColumnName="AssessmentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CategoryDatas">
+            <EntityTypeMapping TypeName="OwaspSAMMModel.CategoryData">
+              <MappingFragment StoreEntitySet="CategoryData">
+                <ScalarProperty Name="CatID" ColumnName="CatID" />
+                <ScalarProperty Name="AssessmentID" ColumnName="AssessmentID" />
+                <ScalarProperty Name="CategoryOrder" ColumnName="CategoryOrder" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GroupDatas">
+            <EntityTypeMapping TypeName="OwaspSAMMModel.GroupData">
+              <MappingFragment StoreEntitySet="GroupData">
+                <ScalarProperty Name="GroupScore" ColumnName="GroupScore" />
+                <ScalarProperty Name="GroID" ColumnName="GroID" />
+                <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+                <ScalarProperty Name="GroupOrder" ColumnName="GroupOrder" />
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuestionDatas">
+            <EntityTypeMapping TypeName="OwaspSAMMModel.QuestionData">
+              <MappingFragment StoreEntitySet="QuestionData">
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="QuestionOrder" ColumnName="QuestionOrder" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="QID" ColumnName="QID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SectionDatas">
+            <EntityTypeMapping TypeName="OwaspSAMMModel.SectionData">
+              <MappingFragment StoreEntitySet="SectionData">
+                <ScalarProperty Name="SectionScorePartial" ColumnName="SectionScorePartial" />
+                <ScalarProperty Name="SectionScore" ColumnName="SectionScore" />
+                <ScalarProperty Name="SecID" ColumnName="SecID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="SectionOrder" ColumnName="SectionOrder" />
+                <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TemplateCategories">
+            <EntityTypeMapping TypeName="OwaspSAMMModel.TemplateCategory">
+              <MappingFragment StoreEntitySet="TemplateCategories">
+                <ScalarProperty Name="CategoryOrder" ColumnName="CategoryOrder" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="TemplateID" ColumnName="TemplateID" />
+                <ScalarProperty Name="CatID" ColumnName="CatID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TemplateGroups">
+            <EntityTypeMapping TypeName="OwaspSAMMModel.TemplateGroup">
+              <MappingFragment StoreEntitySet="TemplateGroups">
+                <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+                <ScalarProperty Name="GroupOrder" ColumnName="GroupOrder" />
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+                <ScalarProperty Name="GroID" ColumnName="GroID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TemplateQuestions">
+            <EntityTypeMapping TypeName="OwaspSAMMModel.TemplateQuestion">
+              <MappingFragment StoreEntitySet="TemplateQuestions">
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+                <ScalarProperty Name="QuestionOrder" ColumnName="QuestionOrder" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="QueID" ColumnName="QueID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TemplateSections">
+            <EntityTypeMapping TypeName="OwaspSAMMModel.TemplateSection">
+              <MappingFragment StoreEntitySet="TemplateSections">
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="SectionOrder" ColumnName="SectionOrder" />
+                <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+                <ScalarProperty Name="SecID" ColumnName="SecID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserDatas">
+            <EntityTypeMapping TypeName="OwaspSAMMModel.UserData">
+              <MappingFragment StoreEntitySet="UserData">
+                <ScalarProperty Name="BUOwner" ColumnName="BUOwner" />
+                <ScalarProperty Name="BusinessUnit" ColumnName="BusinessUnit" />
+                <ScalarProperty Name="Manager" ColumnName="Manager" />
+                <ScalarProperty Name="Administrator" ColumnName="Administrator" />
+                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+                <ScalarProperty Name="OrgName" ColumnName="OrgName" />
+                <ScalarProperty Name="ManagerEID" ColumnName="ManagerEID" />
+                <ScalarProperty Name="MgrFirstName" ColumnName="MgrFirstName" />
+                <ScalarProperty Name="MgrLastName" ColumnName="MgrLastName" />
+                <ScalarProperty Name="ManagerID" ColumnName="ManagerID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="UserDomain" ColumnName="UserDomain" />
+                <ScalarProperty Name="UserNTID" ColumnName="UserNTID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Industries">
+            <EntityTypeMapping TypeName="OwaspSAMMModel.Industry">
+              <MappingFragment StoreEntitySet="Industry">
+                <ScalarProperty Name="IndustryOrder" ColumnName="IndustryOrder" />
+                <ScalarProperty Name="IndustryName" ColumnName="IndustryName" />
+                <ScalarProperty Name="IndustryID" ColumnName="IndustryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IndustryTargets">
+            <EntityTypeMapping TypeName="OwaspSAMMModel.IndustryTarget">
+              <MappingFragment StoreEntitySet="IndustryTarget">
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="IndustryID" ColumnName="IndustryID" />
+                <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IndustryTargetScoreValues">
+            <EntityTypeMapping TypeName="OwaspSAMMModel.IndustryTargetScoreValue">
+              <MappingFragment StoreEntitySet="IndustryTargetScoreValues">
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

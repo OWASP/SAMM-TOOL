@@ -1,0 +1,72 @@
+﻿@model IEnumerable<OwaspSAMM.DAL.IndustryTarget>
+
+@{
+    ViewBag.Title = "Index";
+    var IndustryName = "";
+    var inVal = " in";
+}
+
+<h2>Industry Target Maintenance</h2>
+
+<div class="panel-group" id="accordion">
+    @foreach (var item in Model)
+    {
+        if (IndustryName != item.Industry.IndustryName.ToString())
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#Industry@(item.Industry.IndustryID)">
+                            @Html.DisplayFor(modelItem => item.Industry.IndustryName)
+                        </a>
+                    </h4>
+                </div>
+
+                <div id="Industry@(item.Industry.IndustryID)" class="panel-collapse collapse @inVal">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-3"><strong>Category Name</strong></div>
+                            <div class="col-sm-3"><strong>Section Name</strong></div>
+                            <div class="col-sm-1"><strong>Score</strong></div>
+                            <div class="col-sm-2"><strong>Options</strong></div>
+                        </div>
+
+
+                        @foreach (var item2 in Model)
+                        {
+                            if (item2.Industry.IndustryName.ToString() == item.Industry.IndustryName.ToString())
+                            {
+                                <div class="row">
+                                    <div class="col-sm-3">@Html.DisplayFor(modelItem => item2.Category.CategoryName)</div>
+                                    <div class="col-sm-3">@Html.DisplayFor(modelItem => item2.Section.SectionName)</div>
+                                    <div class="col-sm-1">@Html.DisplayFor(modelItem => item2.IndustryTargetScoreValue.Score)</div>
+                                    <div class="col-sm-2">
+                                        @Html.ActionLink("Edit Score", "Edit", new { id = item2.ID })
+                                    </div>
+                                </div>
+                            }
+                        }
+
+                    </div>
+
+                </div>
+
+
+            </div>
+                        IndustryName = item.Industry.IndustryName.ToString();
+                        inVal = "";
+        }
+
+
+
+    }
+
+</div>
+
+
+
+
+
+
+
+

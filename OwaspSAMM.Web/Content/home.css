@@ -1,0 +1,64 @@
+/* line 5, ../../app/assets/stylesheets/home.css.scss.erb */
+label.checker {
+  text-align: center;
+}
+
+/* line 9, ../../app/assets/stylesheets/home.css.scss.erb */
+th.checker {
+  text-align: center;
+}
+
+/* line 13, ../../app/assets/stylesheets/home.css.scss.erb */
+td.checker {
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* line 18, ../../app/assets/stylesheets/home.css.scss.erb */
+th.rating {
+  text-align: center;
+}
+
+/* line 22, ../../app/assets/stylesheets/home.css.scss.erb */
+td.rating {
+  font-size: 28px;
+  text-align: center;
+  font-family: "Lato", "Arial", sans-serif;
+  font-style: italic;
+  vertical-align: middle;
+}
+
+/* line 30, ../../app/assets/stylesheets/home.css.scss.erb */
+td.question {
+  vertical-align: middle;
+}
+
+/* line 34, ../../app/assets/stylesheets/home.css.scss.erb */
+caption {
+  font-size: 20px;
+  font-weight: bolder;
+  padding-bottom: 10px;
+}
+
+/* line 40, ../../app/assets/stylesheets/home.css.scss.erb */
+#graphycontainer {
+  /*width: 500px;*/
+  width: 90%;
+  height: 1000px;
+}
+
+/* line 46, ../../app/assets/stylesheets/home.css.scss.erb */
+p.centralise {
+  text-align: center;
+}
+
+/* line 49, ../../app/assets/stylesheets/home.css.scss.erb */
+#spinnner {
+  display: none;
+}
+
+/* line 52, ../../app/assets/stylesheets/home.css.scss.erb */
+body .modal-target {
+  width: 750px;
+  margin-left: -375px;
+}

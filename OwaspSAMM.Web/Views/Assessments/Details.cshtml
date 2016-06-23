@@ -1,0 +1,101 @@
+﻿@model OwaspSAMM.DAL.Assessment
+
+@{
+    ViewBag.Title = "Assessment Details";
+}
+
+<h3>Assessments</h3>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    <div>
+        <h4>Detail</h4>
+
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.LabelFor(model => model.ApplicationName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ApplicationName)
+            </dd>
+
+            <dt>
+                @Html.LabelFor(model => model.BusinessUnit)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BusinessUnit)
+            </dd>
+
+            @*<dt>
+                @Html.LabelFor(model => model.OrganizationName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.OrganizationName)
+            </dd>*@
+
+            @*Uncomment the following block of code to enable Template Version selection
+                <dt>
+                    @Html.LabelFor(model=>model.TemplateVersion)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TemplateVersion)
+                </dd>*@
+
+            <dt>
+                @Html.LabelFor(model => model.IndustryID)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Industry.IndustryName)
+            </dd>
+            <dt>
+                @Html.LabelFor(model => model.LastUpdated)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.LastUpdated) by
+                @Html.DisplayFor(model => model.UserData.UserNTID)
+            </dd>
+
+            <dt>
+                @Html.LabelFor(model => model.CreateDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CreateDate) by
+                @Html.DisplayFor(model => model.UserData2.UserNTID)
+            </dd>
+
+            <dt>
+                Owned By
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.UserData1.UserNTID)
+            </dd>
+        </dl>
+
+        @{
+    if (ViewBag.ShowEdit)
+    {
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Edit" class="btn btn-primary" />
+            </div>
+        </div>
+
+    }
+        }
+
+    </div>
+    <p>
+        @Html.ActionLink("Back to List", (string)ViewBag.CallBack)
+        @*@Html.ActionLink("Edit", "Edit", new { id = Model.AssessmentID })*@
+    </p>
+}

@@ -1,0 +1,182 @@
+﻿@import 'bootstrap/bootstrap.less';
+
+// Official HPE Colors
+@HPEGreen: #01a982;
+@HPEGreenLinkHover: darken(@HPEGreen, 6.5%);
+
+// HPE Neutrals
+@HPESlate: #425563;
+@HPEDarkSteel: #5f7a76;
+@HPEBronze: #80746e;
+@HPEGray1: #c6c9ca;
+
+// HPE Vibrants
+@HPETurquoise: #2AD2C9;
+@HPEPurple: #614767;
+@HPEOrange: #FF8D6D;
+
+@HPGrayDark: #767676;
+@HPPurple: #822980;
+@HPBlack: #000000;
+@HPLinkBlue: #007dba;
+
+// HPE Styling applied to navbar - Main menu on all pages
+@navbar-inverse-bg: @HPEGreen;
+@navbar-inverse-color: white;
+@navbar-inverse-link-color: white;
+@navbar-inverse-link-hover-color: white;
+@navbar-inverse-brand-hover-color: white;
+@navbar-inverse-link-hover-bg: lighten(@navbar-inverse-bg, 3%);
+@navbar-inverse-link-active-color: white;
+
+// Set "info" color to HPEPurple
+@brand-info: @HPEPurple;
+
+@border-radius-base: 0;
+@border-radius-large: 0;
+@border-radius-small: 0;
+
+/* BUTTONS - HP Styled*/
+.btn {
+    .button-size(0, 15px, 16px, 36px, 0);
+    border-radius: 0 0 0 0;
+    font-weight: bold;
+    /*padding: 0, 15px, 0, 15px;
+    height: 36px;
+    font-size: 16px;*/
+}
+
+.btn-hp-inline {
+    .button-size(0, 10px, 14px, 26px, 0 );
+    border-radius: 0 0 0 0;
+    margin-left: 10px;
+}
+
+.btn-default {
+    .button-variant(@HPGrayDark, white, @HPGrayDark );
+}
+
+.btn-primary {
+    .button-variant(white, @HPEGreen, @HPEGreen);
+}
+
+.btn-secondary {
+    .button-variant(white; @HPEOrange; @HPEOrange);
+}
+
+.btn-default:visited {
+    color: @HPGrayDark;
+    text-decoration: none;
+}
+
+.btn-primary:visited {
+    color: white;
+    text-decoration: none;
+}
+
+.btn-secondary:visited {
+    color: @HPEOrange;
+    text-decoration: none;
+}
+
+.btn-tertiary:visited {
+    color: white;
+    text-decoration: none;
+}
+
+/* Styled Hyperlink according to HP Styling Guide */
+a {
+    color: @HPEGreen;
+    text-decoration: none;
+}
+
+a:hover, a:focus {
+    text-decoration: underline;
+    color: @HPEGreenLinkHover;
+}
+
+a:visited {
+    color: @HPEGreenLinkHover;
+    text-decoration: none;
+}
+
+a:visited:hover {
+    text-decoration: underline;
+}
+
+h1 {
+    font-weight: bold;
+    font-size: 34px;
+    line-height: 34px;
+    color: @HPBlack;
+}
+
+h2 {
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 24px;
+    color: @HPBlack;
+}
+
+h3 {
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 26px;
+    color: @HPBlack;
+}
+
+h4 {
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    color: @HPBlack;
+}
+
+
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* styles for validation helpers */
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+.right-float {
+    float:right;
+    width:20px;
+}

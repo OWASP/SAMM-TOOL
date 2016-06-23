@@ -1,0 +1,12 @@
+﻿@model OwaspSAMM.DAL.Assessment
+
+<div class="row">
+    @Html.LabelFor(model => model.ApplicationName, htmlAttributes: new { @class = "col-md-2" })
+    @Html.LabelFor(model => model.BusinessUnit, htmlAttributes: new { @class = "col-md-3" })
+    @Html.LabelFor(model => model.Finalized, htmlAttributes: new { @class = "col-md-1 text-center" })
+    @Html.LabelFor(model => model.OwnerID, htmlAttributes: new { @class = "col-md-1" })
+    @Html.LabelFor(model => model.LastUpdateBy, htmlAttributes: new { @class = "col-md-1" })
+    @Html.LabelFor(model => model.CreateBy, htmlAttributes: new { @class = "col-md-1" })
+    <div class="col-md-3"><strong>Options</strong></div>
+</div>
+

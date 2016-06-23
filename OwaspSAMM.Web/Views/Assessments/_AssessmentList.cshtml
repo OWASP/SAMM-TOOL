@@ -1,0 +1,20 @@
+﻿@model OwaspSAMM.DAL.Assessment
+
+<div class="row">
+    <div class="col-md-2">@Html.ActionLink(Model.ApplicationName, "Update", new { id = Model.AssessmentID }) </div>
+    <div class="col-md-3">@(Model.BusinessUnit)</div>
+    <div class="col-md-1 text-center">@(Model.IsFinal() ? "Y" : "")</div>
+    <div class="col-md-1">@(Model.UserData1.UserNTID)</div>
+    <div class="col-md-1">@(Model.LastUpdated.Value.ToShortDateString())</div>
+    <div class="col-md-1">@(Model.CreateDate.Value.ToShortDateString())</div>
+    <div class="col-md-3">
+        @Html.ActionLink("Details", "Details", new { id = Model.AssessmentID }) |
+        @{
+            if (!(bool)ViewBag.SuppressDelete)
+            {
+                @Html.ActionLink("Delete", "Delete", new { id = Model.AssessmentID }) <span>|</span>
+            }
+        }
+        @Html.ActionLink("Scorecard", "Scorecard", new { id = Model.AssessmentID })
+    </div>
+</div>

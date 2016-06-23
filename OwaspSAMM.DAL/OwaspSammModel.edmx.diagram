@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bd125b453b904f35a524a0f86a46f073" Name="Diagram1" ZoomLevel="81">
+        <EntityTypeShape EntityType="OwaspSAMMModel.AssessmentTemplate" Width="2.125" PointX="3.5" PointY="2.25" />
+        <EntityTypeShape EntityType="OwaspSAMMModel.Category" Width="1.5" PointX="7.75" PointY="5.375" />
+        <EntityTypeShape EntityType="OwaspSAMMModel.Group" Width="1.5" PointX="11.375" PointY="5.375" />
+        <EntityTypeShape EntityType="OwaspSAMMModel.Question" Width="1.5" PointX="13.125" PointY="5.375" />
+        <EntityTypeShape EntityType="OwaspSAMMModel.Section" Width="1.5" PointX="9.625" PointY="5.375" />
+        <EntityTypeShape EntityType="OwaspSAMMModel.Assessment" Width="1.5" PointX="4.75" PointY="7.625" />
+        <EntityTypeShape EntityType="OwaspSAMMModel.CategoryData" Width="1.5" PointX="7.625" PointY="8.25" />
+        <EntityTypeShape EntityType="OwaspSAMMModel.GroupData" Width="1.5" PointX="12.125" PointY="8.25" />
+        <EntityTypeShape EntityType="OwaspSAMMModel.QuestionData" Width="1.5" PointX="14.375" PointY="8.25" />
+        <EntityTypeShape EntityType="OwaspSAMMModel.SectionData" Width="1.5" PointX="9.875" PointY="8.25" />
+        <AssociationConnector Association="OwaspSAMMModel.FK_CategoryData_Assessment" />
+        <AssociationConnector Association="OwaspSAMMModel.FK_SectionData_CategoryData" />
+        <AssociationConnector Association="OwaspSAMMModel.FK_GroupData_SectionData" />
+        <AssociationConnector Association="OwaspSAMMModel.FK_QuestionData_GroupData" />
+        <AssociationConnector Association="OwaspSAMMModel.FK_CategoryData_Categories" />
+        <AssociationConnector Association="OwaspSAMMModel.FK_GroupData_Groups" />
+        <AssociationConnector Association="OwaspSAMMModel.FK_SectionData_Sections" />
+        <EntityTypeShape EntityType="OwaspSAMMModel.TemplateCategory" Width="2" PointX="6.5" PointY="2.25" />
+        <EntityTypeShape EntityType="OwaspSAMMModel.TemplateGroup" Width="1.5" PointX="11.625" PointY="2.25" />
+        <EntityTypeShape EntityType="OwaspSAMMModel.TemplateQuestion" Width="1.5" PointX="13.375" PointY="2.375" />
+        <EntityTypeShape EntityType="OwaspSAMMModel.TemplateSection" Width="1.75" PointX="9.375" PointY="2.25" />
+        <AssociationConnector Association="OwaspSAMMModel.FK_TemplateCategories_AssessmentTemplate" />
+        <AssociationConnector Association="OwaspSAMMModel.FK_TemplateCategories_Categories" />
+        <AssociationConnector Association="OwaspSAMMModel.FK_TemplateGroups_Groups" />
+        <AssociationConnector Association="OwaspSAMMModel.FK_TemplateQuestions_Questions" />
+        <AssociationConnector Association="OwaspSAMMModel.FK_TemplateSections_Sections" />
+        <AssociationConnector Association="OwaspSAMMModel.FK_TemplateSections_TemplateCategories" />
+        <AssociationConnector Association="OwaspSAMMModel.FK_TemplateGroups_TemplateSections" />
+        <AssociationConnector Association="OwaspSAMMModel.FK_TemplateQuestions_TemplateGroups" />
+        <EntityTypeShape EntityType="OwaspSAMMModel.UserData" Width="1.5" PointX="2.5" PointY="7.625" IsExpanded="true" />
+        <AssociationConnector Association="OwaspSAMMModel.FK_Assessment_UserData" />
+        <AssociationConnector Association="OwaspSAMMModel.FK_Assessment_UserData1" />
+        <AssociationConnector Association="OwaspSAMMModel.FK_Assessment_UserData2" />
+        <EntityTypeShape EntityType="OwaspSAMMModel.Industry" Width="1.5" PointX="6.75" PointY="11.25" />
+        <AssociationConnector Association="OwaspSAMMModel.FK_QuestionData_Questions" />
+        <AssociationConnector Association="OwaspSAMMModel.FK_Assessment_Industry" />
+        <EntityTypeShape EntityType="OwaspSAMMModel.IndustryTarget" Width="1.5" PointX="9" PointY="11.5" />
+        <EntityTypeShape EntityType="OwaspSAMMModel.IndustryTargetScoreValue" Width="1.5" PointX="11.125" PointY="11.625" />
+        <AssociationConnector Association="OwaspSAMMModel.FK_IndustrySectionDefault_Categories" />
+        <AssociationConnector Association="OwaspSAMMModel.FK_IndustrySectionDefault_Industry" />
+        <AssociationConnector Association="OwaspSAMMModel.FK_IndustrySectionDefault_Sections" />
+        <AssociationConnector Association="OwaspSAMMModel.FK_IndustryTarget_IndustryTargetScoreValues1" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

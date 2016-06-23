@@ -1,0 +1,160 @@
+﻿@model OwaspSAMM.DAL.Assessment
+
+@{
+    var categoryData = Model.CategoryDatas;
+
+    var X = new List<string>();
+    var A = new List<string>();
+    var Y = new List<string>();
+    var Z = new List<string>();
+    var plusSign = "+";
+    var score = "";
+    var targetscore = "";
+    var name = "";
+    var color = "";
+    var charttitle = Model.ApplicationName + " vs " + Model.Industry.IndustryName;
+
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    
+    
+    foreach (var catItem in categoryData)
+    {
+
+        foreach (var secItem in catItem.SectionDatas)
+        {
+            // Convert the score data to a value to display on the screen
+
+            score = secItem.SectionScore.ToString();
+            if (secItem.SectionScorePartial > 0)
+            {
+                score += plusSign;
+            }
+
+            name = secItem.Section.SectionName;
+            X.Add(name);
+            Y.Add(score);
+            color = catItem.Category.CategoryColor.ToString();
+            A.Add(color);
+
+            foreach (var IndustryItem in Model.Industry.IndustryTargets)
+            {
+                if (IndustryItem.SectionID == secItem.SectionID)
+                {
+                    targetscore = IndustryItem.Score.ToString();
+                    Z.Add(targetscore);
+                }
+                
+
+            }
+
+        }
+
+
+    }
+
+    <div class="container" id="scorecard">
+        <p class="centralise">
+            <h4 class="text-center">@charttitle</h4>
+            <h6 class="text-center">Current values are represented by the bars, @Model.Industry.IndustryName Targets are represented by the points</h6>
+            <canvas id="myChart"></canvas>
+        </p>
+
+
+        <script type="text/javascript">
+
+
+    var CatNames = [@Html.Raw(String.Join(",", X.Select(s => "'" + s + "'")))];
+    var CatTarget = [@Html.Raw(String.Join(",", Z.Select(s => "'" + s + "'")))];
+    var CatScore = [@Html.Raw(String.Join(",", Y.Select(s => "'" + s + "'")))];
+    var CatColor = [@Html.Raw(String.Join(",", A.Select(s => "'" + s + "'")))];
+    var ChartTitle = [@Html.Raw("'" + charttitle.Replace("'", "\\\'") + "'")];
+
+            </script>
+
+        @Scripts.Render("~/Scripts/Scorecard")
+
+        <script>
+
+            $(document).ready(function () {
+
+
+                //Smooth Scroller
+                $(".scroll").click(function (event) {
+                    event.preventDefault();
+                    $('html,body').animate({ scrollTop: $(this.hash).offset().top }, 500);
+                });
+
+                   
+             
+
+                //Create the barChatData needed by Chart.js
+
+                //Chart.defaults.global.responsive = true;
+                               
+                var barChartData = {
+                    labels: [CatNames[0].toString(), CatNames[1].toString(), CatNames[2].toString(), CatNames[3].toString(), CatNames[4].toString(), CatNames[5].toString(), CatNames[6].toString(), CatNames[7].toString(), CatNames[8].toString(), CatNames[9].toString(), CatNames[10].toString(), CatNames[11].toString()],
+                    datasets: [
+                        {
+                            label: "@Model.Industry.IndustryName",
+                            type: "line",
+                            fillColor: "#fff",
+                            strokeColor: "#fff",
+                            pointColor: "rgba(0,0,0,1)",
+                            pointStrokeColor: "#fff",
+                            pointHighlightFill: "#fff",
+                            pointHighlightStroke: "rgba(0,0,0,1)",
+                            data: [ConvertValsToRaw(CatTarget[0].toString()), ConvertValsToRaw(CatTarget[1].toString()), ConvertValsToRaw(CatTarget[2].toString()), ConvertValsToRaw(CatTarget[3].toString()), ConvertValsToRaw(CatTarget[4].toString()), ConvertValsToRaw(CatTarget[5].toString()), ConvertValsToRaw(CatTarget[6].toString()), ConvertValsToRaw(CatTarget[7].toString()), ConvertValsToRaw(CatTarget[8].toString()), ConvertValsToRaw(CatTarget[9].toString()), ConvertValsToRaw(CatTarget[10].toString()), ConvertValsToRaw(CatTarget[11].toString())
+                            ]
+                        },
+                        {
+                            label: "Current",
+                            type: "bar",
+                            //fillColor: CatColor[0].toString(),
+                            //strokeColor: CatColor[0].toString(),
+                            //highlightFill: CatColor[0].toString(),
+                            //highlightStroke: CatColor[0].toString(),
+                            data: [ConvertValsToRaw(CatScore[0].toString()), ConvertValsToRaw(CatScore[1].toString()), ConvertValsToRaw(CatScore[2].toString()), ConvertValsToRaw(CatScore[3].toString()), ConvertValsToRaw(CatScore[4].toString()), ConvertValsToRaw(CatScore[5].toString()), ConvertValsToRaw(CatScore[6].toString()), ConvertValsToRaw(CatScore[7].toString()), ConvertValsToRaw(CatScore[8].toString()), ConvertValsToRaw(CatScore[9].toString()), ConvertValsToRaw(CatScore[10].toString()), ConvertValsToRaw(CatScore[11].toString())]
+                        }
+                        
+                    ]
+                }
+
+                //Draw the chart on page render using Chart.js
+                
+                var ctx = document.getElementById("myChart").getContext("2d");
+                window.myBar = new Chart(ctx).LineBar(barChartData, {
+                    responsive: true,
+                    animation: true,
+                    scaleFontColor: "#000000",
+                    scaleShowGridLines: false,
+                    barStrokeWidth: 4,
+                    pointDotRadius: 6,
+                    scaleOverride: true,
+                    scaleSteps: 6,
+                    scaleStepWidth: 1,
+                    scaleStartValue: 0,
+                    scaleLabel: "<%= ConvertRawToVals(value) %>",
+                    tooltipFillColor: "rgba(0,0,0,0.8)",                        
+                    multiTooltipTemplate: "<%= datasetLabel %> - <%= ConvertRawToVals(value) %>",
+                    legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+                
+
+                });
+
+                              
+                
+            });
+
+          
+        </script>
+
+    </div>
+}
+
+
+

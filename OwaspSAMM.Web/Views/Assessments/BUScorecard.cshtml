@@ -1,0 +1,16 @@
+﻿
+ 
+@model OwaspSAMM.DAL.Assessment
+ 
+@{
+    ViewBag.Title = "Scorecard";
+    Html.RenderPartial("_Scorecard", Model);
+    Session["TempScorecard"] = Model;
+    
+    <p>
+        @Html.ActionLink("Back to List", "BUSummary") |
+        @Html.ActionLink("Export to Excel", "Export2Excel")
+    </p>
+}
+
+

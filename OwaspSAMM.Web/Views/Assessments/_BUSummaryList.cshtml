@@ -1,0 +1,17 @@
+﻿@model List<OwaspSAMM.DAL.Assessment>
+
+@foreach (var o in Model)
+{
+<div class="row">
+    <div class="col-md-2">@Html.ActionLink(o.ApplicationName, "Update", new { id = o.AssessmentID, readOnly = true, callBack = "BUSummary" }) </div>
+    <div class="col-md-3">@(o.BusinessUnit)</div>
+    <div class="col-md-1 text-center">@(o.IsFinal() ? "Y" : "")</div>
+    <div class="col-md-1">@(o.UserData1.UserNTID)</div>
+    <div class="col-md-1">@(o.LastUpdated.Value.ToShortDateString())</div>
+    <div class="col-md-3">
+        @Html.ActionLink("Details", "Details", new { id = o.AssessmentID, readOnly = true, callBack = "BUSummary" }) |
+        @Html.ActionLink("Scorecard", "Scorecard", new { id = o.AssessmentID, callBack = "BUSummary" })
+    </div>
+</div>
+}
+

@@ -1,0 +1,215 @@
+﻿@model OwaspSAMM.DAL.Assessment
+
+@{
+    ViewBag.Title = "Update Assessment";
+}
+
+@{
+    var categoryData = Model.CategoryDatas;
+    var plusSign = "+";
+    var score = "";
+    var firstCategory = 1;
+    var firstTab = "in active";
+    var numTabs = 0;
+    var tabCounter = 1;
+
+}
+
+@using (Ajax.BeginForm(new AjaxOptions()
+    {
+        OnSuccess = "ReturnToIndex"
+    }
+    ))
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="form-horizontal">
+        <h3>Assessment</h3>
+        <h4>Product Name: <strong>@(Model.ApplicationName)</strong></h4>
+        <hr />
+
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.AssessmentID)
+
+
+
+        <ul id="tabs" class="nav nav-tabs col-sm-10" data-tabs="tabs">
+
+            @foreach (var catItem in categoryData)
+            {
+                if (firstCategory > 0)
+                {
+                    <li class="active"><a href="#@(catItem.Category.CategoryName)" data-toggle="tab">@catItem.Category.CategoryName</a></li>
+                    firstCategory = 0;
+                }
+                else
+                {
+                    <li><a href="#@(catItem.Category.CategoryName)" data-toggle="tab">@catItem.Category.CategoryName</a></li>
+                }
+                numTabs = numTabs + 1;
+            }
+        </ul>
+        <div id="my-tab-content" class="tab-content col-sm-10 ">
+            @foreach (var catItem in categoryData)
+            {
+                <div class="tab-pane fade @(firstTab)" id="@(catItem.Category.CategoryName)">
+
+                    <!-- @catItem.Category.CategoryName-->
+                    @foreach (var secItem in catItem.SectionDatas)
+                    {
+                        // Convert the score data to a value to display on the screen
+                        score = secItem.SectionScore.ToString();
+                        if (secItem.SectionScorePartial > 0)
+                        {
+                            score += plusSign;
+                        }
+
+                        string scoreID = "Score" + secItem.SectionID.ToString();
+                        <div class=" panel panel-default">
+                            <div class="panel-heading text-left">
+                                <div class="row">
+                                    <div class="col-sm-11">@secItem.Section.SectionName</div>
+                                    <div class="col-sm-1" id="@scoreID">Score:&nbsp;@score</div>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                @foreach (var groItem in secItem.GroupDatas)
+                                {
+                                    firstTab = "";
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            @foreach (var queItem in groItem.QuestionDatas)
+                                            {
+                                                // Write out the questions
+                                                <div class="col-sm-11">
+                                                    @queItem.Question.QuestionText
+                                                </div>
+
+                                                <input class="col-sm-1 right" type="checkbox" name="assessmentResponse"
+                                                       value="@queItem.Question.QuestionID" @(Html.Raw(queItem.Answer.Value ? "checked=\"checked\"" : ""))
+                                                       @(Html.Raw(ViewBag.ReadOnly ? "disabled=\"disabled\"" : ""))
+                                                       onchange="cbChange(this)" />
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+
+
+                    }
+                    @if (!ViewBag.ReadOnly)
+                    {
+                        <div class="row">
+                            <a class="btn btn-default col-sm-offset-11 col-sm-1 btnClear" name="@(catItem.Category.CategoryName)" data-toggle="tooltip" title="Clear checkboxes on page" data-placement="right">
+                                Reset <span class="glyphicon glyphicon-unchecked" />
+                            </a>
+                        </div>
+                    }
+
+
+                    @if (tabCounter < numTabs)
+                    {
+                        <div class="col-sm-10">
+                            <a class="btn btn-primary btnNext" data-toggle="tooltip" title="Move to next tab" data-placement="right">Next</a>
+                            @if (!ViewBag.ReadOnly)
+                            {
+                                <input type="submit" name="btnclick" value="Save" class="btn btn-primary" />
+                            }
+                        </div>
+
+                            tabCounter = tabCounter + 1;
+                    }
+                    else
+                    {
+                        <div class="col-sm-10">
+                            @if (!ViewBag.ReadOnly)
+                            {
+                                <input type="submit" name="btnclick" value="Save" class="btn btn-primary" />
+                                <input type="submit" name="btnclick" value="Save & Submit" class="btn btn-warning" />
+                            }
+                        </div>
+                    }
+
+                </div>
+            }
+        </div>
+
+        <div class="form-group">
+
+        </div>
+
+    </div>
+}
+<div>
+    @Html.ActionLink("Back to List", (string)ViewBag.CallBack)
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+        });
+
+        function cbChange(cb) {
+            var aID = $("#AssessmentID").val();
+            UpdateCheckbox(cb.value, cb.checked, aID);
+        }
+
+        function ReturnToIndex() {
+            window.location.href = "../Index";
+        }
+
+        $('.btnNext').click(function () {
+            $('.nav-tabs > .active').next('li').find('a').trigger('click');
+            $("html, body").animate({
+                scrollTop: 0
+            });
+        });
+
+        $('.btnClear').click(function () {
+            // Get the list of checkboxes in the current Div
+            var checkboxes = $("#" + this.name + " :input");
+            var aID = $("#AssessmentID").val();
+
+            // Loop through the checkboxes and set them all to false
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].type == 'checkbox') {
+                    checkboxes[i].checked = false;
+                    UpdateCheckbox(checkboxes[i].value, false, aID);
+                }
+            }
+        })
+
+        // This function will make an ajax call to the server and update the session copy of the assessment.  It passes the following arguments to the
+        // ToggleCheckBox action method in the Assessments controller:  QuestionID, new value of Answer, AssessmentID.
+        //
+        // The action method in the controller will use the QuestionID to update the Answer in the AssessmentID.  It will then recompute the score
+        // for the section and pass it back to this function.
+        //
+        // The success: portion of the ajax call will take the updated score value and apply it to the screen.
+        //
+        function UpdateCheckbox(cbID, cbVal, aID) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("ToggleCheckBox", "Assessments")',
+                data: { cbQuestionID: cbID, cbChecked: cbVal, AssessmentID: aID },
+                success: function (dat) {
+                    $('#' + dat.ScoreID).text(dat.ScoreValue);
+                },
+                error: function (xhr, errorType, exception) { //Triggered if an error communicating with server
+                    var errorMessage = exception || xhr.statusText; //If exception null, then default to xhr.statusText
+
+                    alert("There was a JavaScript error in the Ajax call: " + errorMessage);
+                }
+            })
+
+        }
+    </script>
+}
+
+
+
+

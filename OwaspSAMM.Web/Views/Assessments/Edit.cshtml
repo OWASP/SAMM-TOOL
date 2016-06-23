@@ -1,0 +1,87 @@
+﻿@model OwaspSAMM.DAL.Assessment
+
+@{
+    ViewBag.Title = "Edit Assessment";
+}
+
+<h3>Assessments</h3>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Edit</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.AssessmentID)
+
+        <div class="form-group">
+            @Html.LabelFor(model=>model.ApplicationName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ApplicationName)
+                @Html.ValidationMessageFor(model => model.ApplicationName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BusinessUnit, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+@*                @Html.TextBox("BusinessUnit", Model.BusinessUnit, htmlAttributes: new { @class = "col-md-3", @readonly = "readonly" })*@
+                @Html.TextBox("BusinessUnit", Model.BusinessUnit, htmlAttributes: new { @class = "col-md-3" })
+            </div>
+        </div>
+        @*<div class="form-group">
+            @Html.LabelFor(model=>model.OrganizationName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("OrganizationName", Model.OrganizationName, htmlAttributes: new { @class = "col-md-3", @readonly = "readonly" })
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            @Html.LabelFor(model=>model.IndustryID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("IndustryID")
+                @Html.ValidationMessageFor(model => model.IndustryID)
+            </div>
+        </div>
+
+        @*Uncomment the following block of code to enable selection of Template Version*@
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.TemplateVersion, htmlAttributes: new { @class="control-label col-md-2"})
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.TemplateVersion)
+                @Html.ValidationMessageFor(model => model.TemplateVersion)
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            @Html.LabelFor(model=>model.OwnerID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("OwnerID")
+                @Html.ValidationMessageFor(model => model.OwnerID)
+            </div>
+        </div>
+
+        @* These fields are included here and hidden because the view needs to return them to the controller.  If they
+            are omitted from the View, then null values will be returned and saved to the table when the changes are saved. *@
+        @Html.HiddenFor(model => model.TemplateVersion)
+        @Html.HiddenFor(model => model.CreateBy)
+        @Html.HiddenFor(model => Model.CreateDate)
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

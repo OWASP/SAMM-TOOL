@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DA02CCAB-F8BC-43C5-8192-6F02D80526BC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OwaspSAMM.DAL</RootNamespace>
+    <AssemblyName>OwaspSAMM.DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assessment.cs">
+      <DependentUpon>OwaspSammModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AssessmentTemplate.cs">
+      <DependentUpon>OwaspSammModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Category.cs">
+      <DependentUpon>OwaspSammModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CategoryData.cs">
+      <DependentUpon>OwaspSammModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ExtentionMethods.cs" />
+    <Compile Include="Group.cs">
+      <DependentUpon>OwaspSammModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GroupData.cs">
+      <DependentUpon>OwaspSammModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Industry.cs">
+      <DependentUpon>OwaspSammModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IndustryTarget.cs">
+      <DependentUpon>OwaspSammModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IndustryTargetScoreValue.cs">
+      <DependentUpon>OwaspSammModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AssessmentPartial.cs" />
+    <Compile Include="Models\CategoryDataPartial.cs" />
+    <Compile Include="Models\CategoryPartial.cs" />
+    <Compile Include="Models\GroupDataPartial.cs" />
+    <Compile Include="Models\GroupPartial.cs" />
+    <Compile Include="Models\IndustryPartial.cs" />
+    <Compile Include="Models\IndustryTargetPartial.cs" />
+    <Compile Include="Models\QuestionDataPartial.cs" />
+    <Compile Include="Models\QuestionPartial.cs" />
+    <Compile Include="Models\SectionDataPartial.cs" />
+    <Compile Include="Models\SectionPartial.cs" />
+    <Compile Include="Models\UserDataPartial.cs" />
+    <Compile Include="OwaspSammModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OwaspSammModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OwaspSammModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OwaspSammModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OwaspSammModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OwaspSammModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="OwaspSAMMRepository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Question.cs">
+      <DependentUpon>OwaspSammModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="QuestionData.cs">
+      <DependentUpon>OwaspSammModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Section.cs">
+      <DependentUpon>OwaspSammModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SectionData.cs">
+      <DependentUpon>OwaspSammModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TemplateCategory.cs">
+      <DependentUpon>OwaspSammModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TemplateGroup.cs">
+      <DependentUpon>OwaspSammModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TemplateQuestion.cs">
+      <DependentUpon>OwaspSammModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TemplateSection.cs">
+      <DependentUpon>OwaspSammModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserData.cs">
+      <DependentUpon>OwaspSammModel.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <EntityDeploy Include="OwaspSammModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>OwaspSammModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="OwaspSammModel.edmx.diagram">
+      <DependentUpon>OwaspSammModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="OwaspSammModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>OwaspSammModel.Context.cs</LastGenOutput>
+      <DependentUpon>OwaspSammModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="OwaspSammModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>OwaspSammModel.cs</LastGenOutput>
+      <DependentUpon>OwaspSammModel.edmx</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

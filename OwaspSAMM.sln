@@ -1,0 +1,50 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwaspSAMM.DAL", "OwaspSAMM.DAL\OwaspSAMM.DAL.csproj", "{DA02CCAB-F8BC-43C5-8192-6F02D80526BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwaspSAMM.Web", "OwaspSAMM.Web\OwaspSAMM.Web.csproj", "{15FD0E20-C139-4C91-A1DB-FB4A83C47C10}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "OwaspSAMM.Database", "OwaspSAMM.Database\OwaspSAMM.Database.sqlproj", "{7236941F-5697-4029-B85D-6877CCBE3ECA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DA02CCAB-F8BC-43C5-8192-6F02D80526BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA02CCAB-F8BC-43C5-8192-6F02D80526BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA02CCAB-F8BC-43C5-8192-6F02D80526BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA02CCAB-F8BC-43C5-8192-6F02D80526BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15FD0E20-C139-4C91-A1DB-FB4A83C47C10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15FD0E20-C139-4C91-A1DB-FB4A83C47C10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15FD0E20-C139-4C91-A1DB-FB4A83C47C10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15FD0E20-C139-4C91-A1DB-FB4A83C47C10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7236941F-5697-4029-B85D-6877CCBE3ECA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7236941F-5697-4029-B85D-6877CCBE3ECA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7236941F-5697-4029-B85D-6877CCBE3ECA}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{7236941F-5697-4029-B85D-6877CCBE3ECA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7236941F-5697-4029-B85D-6877CCBE3ECA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7236941F-5697-4029-B85D-6877CCBE3ECA}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://g2w5486.austin.hpecorp.net:8080/tfs/product%20security%20review%20services
+		SccProjectUniqueName0 = OwaspSAMM.DAL\\OwaspSAMM.DAL.csproj
+		SccProjectName0 = OwaspSAMM.DAL
+		SccLocalPath0 = OwaspSAMM.DAL
+		SccProjectUniqueName1 = OwaspSAMM.Database\\OwaspSAMM.Database.sqlproj
+		SccProjectName1 = OwaspSAMM.Database
+		SccLocalPath1 = OwaspSAMM.Database
+		SccProjectUniqueName2 = OwaspSAMM.Web\\OwaspSAMM.Web.csproj
+		SccProjectName2 = OwaspSAMM.Web
+		SccLocalPath2 = OwaspSAMM.Web
+		SccLocalPath3 = .
+	EndGlobalSection
+EndGlobal

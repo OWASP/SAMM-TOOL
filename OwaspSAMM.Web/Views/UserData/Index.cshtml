@@ -1,0 +1,76 @@
+﻿@model PagedList.IPagedList<OwaspSAMM.DAL.UserData>
+@using PagedList.Mvc;
+@using PagedList;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>User Maintenance</h2>
+
+
+
+@using (Html.BeginForm("Index", "UserData", FormMethod.Get))
+{
+    <div class="row">
+        <div class="text-left col-md-7">Find by user last name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" /></div>
+        <a href="~/UserData/Create" class="btn btn-hp-inline btn-primary pull-right" role="button">Create New User</a>
+    </div>
+}
+
+<br />
+
+<div class="row">
+    <div class="col-md-2"><strong>User ID</strong></div>
+    <div class="col-md-2"><strong>User Name</strong></div>
+    <div class="col-md-2"><strong>Manager Name</strong></div>
+    <div class="col-md-1"><strong>BU</strong></div>
+    <div class="col-md-2"><strong>Last Login Date</strong></div>
+    <div class="col-md-1"><strong>Administrator</strong></div>
+    <div class="col-md-2"><strong>Options</strong></div>
+</div>
+
+
+@foreach (var item in Model)
+{
+    
+    var userID = @Html.DisplayFor(modelItem => item.UserDomain) + "\\" + @Html.DisplayFor(modelItem => item.UserNTID);
+
+    <div class="row">
+
+        <div class="col-md-2">@userID</div>
+        <div class="col-md-2">@Html.DisplayFor(modelItem => item.FirstName)  @Html.DisplayFor(modelItem => item.LastName)</div>
+        <div class="col-md-2">@Html.DisplayFor(modelItem => item.MgrFirstName)  @Html.DisplayFor(modelItem => item.MgrLastName)</div>
+        <div class="col-md-1">@Html.DisplayFor(modelitem=>item.BusinessUnit)</div>
+        <div class="col-md-2">@Html.DisplayFor(modelItem => item.LastLoginDate)</div>
+        <div class="col-md-1">@Html.DisplayFor(modelItem => item.Administrator)</div>
+        <div class="col-md-2">
+            @Html.ActionLink("Details", "Details", new { id = item.UserID }) |
+            @{if (item.AssessmentCount() == 0)
+            {
+                @Html.ActionLink("Delete", "Delete", new { id = item.UserID })
+            }
+            else
+            {
+                @Html.ActionLink("Transfer Asmts", "Transfer", new { id = item.UserID })
+            }
+            }
+        </div>
+    </div>
+
+    
+}
+
+@{
+ // Only display the paging control if there is more than one page of data
+    IPagedList otherAssessments = (IPagedList<OwaspSAMM.DAL.UserData>)Model;
+    if (otherAssessments.PageCount > 1)
+    {
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+    }
+
+       
+
+}

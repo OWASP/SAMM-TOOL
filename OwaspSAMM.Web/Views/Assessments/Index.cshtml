@@ -1,0 +1,73 @@
+﻿@model IEnumerable<OwaspSAMM.DAL.Assessment>
+
+@using PagedList.Mvc;
+@using PagedList;
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Assessments";
+    ViewBag.SuppressDelete = false;         // Controls if Delete option is visible on screen
+    IEnumerable<OwaspSAMM.DAL.Assessment> OtherAssessments = ViewBag.OtherAssessments;
+    OwaspSAMM.DAL.Assessment mdl = new OwaspSAMM.DAL.Assessment();
+}
+
+
+<div class="row">
+    <h3 class="col-md-2">Assessments</h3>
+
+</div>
+<div class="row">
+    <div class="text-left col-md-3"><h3>My Assessments</h3></div>
+    <a href="~/Assessments/Create" class="btn btn-hp-inline btn-primary pull-right" role="button">Create Assessment</a>
+</div>
+
+@* Start top section of assessments *@
+@{
+    Html.RenderPartial("_AssessmentListHeader", mdl);
+    ViewBag.SuppressDelete = false;
+    if (Model.Count() > 0)
+    {
+        foreach (var o in Model)
+        {
+            Html.RenderPartial("_AssessmentList", o);
+        }
+    }
+    else
+    {
+        <div class="text-left">No Assessments Found</div>
+    }
+
+}
+<hr />
+@* Start lower section of assessments *@
+@{
+    if (OtherAssessments != null)
+    {
+        <div class="row">
+            <div class="text-left col-md-3"><h3>@ViewBag.AssessmentTitle Assessments</h3></div>
+        </div>
+        Html.RenderPartial("_assessmentListHeader", mdl);
+        ViewBag.SuppressDelete = (bool)ViewBag.Peer;    // Peers cannot delete Peer Assessments, suppress the option to allow it
+        if (OtherAssessments != null && OtherAssessments.Count() > 0)
+        {
+            foreach (var o in OtherAssessments)
+            {
+                Html.RenderPartial("_AssessmentList", o);
+            }
+        }
+        else
+        {
+            <div class="text-left">No Assessments Found</div>
+        }
+
+        // Only display the paging control if there is more than one page of data
+        IPagedList otherAssessments = (IPagedList<OwaspSAMM.DAL.Assessment>)OtherAssessments;
+        if (otherAssessments.PageCount > 1)
+        {
+            @Html.PagedListPager((IPagedList)ViewBag.OtherAssessments, page => Url.Action("Index", new { page }))
+        }
+    }
+}
+<br />
+

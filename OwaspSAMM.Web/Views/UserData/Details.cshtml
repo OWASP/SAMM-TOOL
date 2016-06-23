@@ -1,0 +1,135 @@
+﻿@model OwaspSAMM.DAL.UserData
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+@using (Html.BeginForm())
+{
+
+<div>
+    <h4>User Data</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserNTID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserNTID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserDomain)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserDomain)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ManagerID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ManagerID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MgrLastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MgrLastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MgrFirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MgrFirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ManagerEID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ManagerEID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BusinessUnit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BusinessUnit)
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.OrgName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OrgName)
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastLoginDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastLoginDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BUOwner)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BUOwner)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Administrator)
+        </dt>
+
+        <dd>
+           @Html.DisplayFor(model => model.Administrator)
+        </dd>
+
+    </dl>
+
+        @{if (@System.Web.Configuration.WebConfigurationManager.AppSettings["LDAPEnabled"] != "true") { 
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Edit" class="btn btn-primary" />
+                </div>
+            </div>
+          }
+        }
+</div>
+<p>   
+    @Html.ActionLink("Back to List", "Index")
+</p>
+    
+}

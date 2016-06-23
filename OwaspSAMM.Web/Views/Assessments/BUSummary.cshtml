@@ -1,0 +1,76 @@
+﻿@model OwaspSAMM.Web.Models.BusinessUnitSummaryVM
+
+@using PagedList.Mvc;
+@using PagedList;
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Business Unit Summary";
+    IEnumerable<OwaspSAMM.DAL.Assessment> buAssessments = Model.BUAssessments;
+    OwaspSAMM.DAL.Assessment modl = new OwaspSAMM.DAL.Assessment();
+    var bulist = new SelectList(Model.BUList);
+}
+
+@using (@Ajax.BeginForm(new AjaxOptions()))
+{
+    @Html.AntiForgeryToken();
+    <div class="row">
+        <h3 class="col-sm-12">Business Unit Summary</h3>
+    </div>
+    if (Model.BUList.Count > 0)
+    {
+        <div class="row">
+            <div>@Html.DropDownList("bulist", bulist, new { @class = "dropdown col-lg-3 col-md-3 col-sm-3 col-xs-4", onchange = "ChangeBUDDL()" })</div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 "></div>
+            <div><input type="submit" name="submit" value="Summary Scorecard" class="btn btn-hp-inline btn-primary" /></div>
+        </div>
+    }
+    <hr />
+    <div class="row">
+        @Html.LabelFor(model => modl.ApplicationName, htmlAttributes: new { @class = "col-md-2" })
+        @Html.LabelFor(model => modl.BusinessUnit, htmlAttributes: new { @class = "col-md-3" })
+        @Html.LabelFor(model => modl.Finalized, htmlAttributes: new { @class = "col-md-1 text-center" })
+        @Html.LabelFor(model => modl.OwnerID, htmlAttributes: new { @class = "col-md-1" })
+        @Html.LabelFor(model => modl.LastUpdateBy, htmlAttributes: new { @class = "col-md-1" })
+        <div class="col-md-3"><strong>Options</strong></div>
+    </div>
+    <div id="buSummaryPartial">
+        @{
+    if (Model.BUAssessments.Count() > 0)
+    {
+        Html.RenderPartial("_BUSummaryList", Model.BUAssessments);
+    }
+    else
+    {
+        <div class="text-left">No Assessments Found</div>
+    }
+        }
+    </div>
+    <hr />
+    <br />
+}
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+        });
+
+        // Called when the business unit dropdown is changed.  Calls a controller action method to update the list of assessments.
+        function ChangeBUDDL() {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("ChangeBUList", "Assessments")',
+                data: { buName: $('#bulist').val() },
+                error: function (xhr, errorType, exception) { //Triggered if an error communicating with server
+                    var errorMessage = exception || xhr.statusText; //If exception null, then default to xhr.statusText
+                    alert("There was a JavaScript error in the Ajax call: " + errorMessage);
+                },
+                success: function (data) {                  // Returns partial view to update the list of assessments
+                    $("#buSummaryPartial").html(data);
+                }
+            })
+        }
+
+    </script>
+}
