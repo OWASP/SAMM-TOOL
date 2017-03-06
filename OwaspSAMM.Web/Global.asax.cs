@@ -20,6 +20,7 @@ namespace OwaspSAMM.Web
 
             log4net.Config.XmlConfigurator.Configure(new FileInfo(Server.MapPath("~/Web.config")));
 
+            //Hello World
         }
     }
 }
