@@ -108,7 +108,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
     `npm install nodemon`   
     Aftet installation, run the command:`npm start`(Do not close this terminal)
 6) To run the angular app, go to the parent directory `/SAMM` and run `ng serve` in cmd. (Do not close this terminal)
-7) Open browser and navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+7) Open browser and navigate to `http://localhost:4208/`. The app will automatically reload if you change any of the source files.
     
 ## Default User Credentials
 Normal User Credentials - Can update scores for the business functions and security practices  
